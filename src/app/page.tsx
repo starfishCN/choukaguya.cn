@@ -61,7 +61,40 @@ export default function Home() {
       <SiteHeader />
 
       <section className="ck-hero mb-6">
-        <div className="ck-moon" aria-hidden />
+        <svg className="ck-moon" viewBox="0 0 200 200" aria-hidden focusable="false">
+          <defs>
+            <radialGradient id="ckMoonDisc" cx="36%" cy="30%" r="82%">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="22%" stopColor="#eef7f6" />
+              <stop offset="52%" stopColor="#cfe6e4" />
+              <stop offset="78%" stopColor="#8fb9bb" />
+              <stop offset="100%" stopColor="#4c7c80" />
+            </radialGradient>
+            <radialGradient id="ckMoonCrater" cx="40%" cy="36%" r="72%">
+              <stop offset="0%" stopColor="rgba(52,88,92,0.34)" />
+              <stop offset="62%" stopColor="rgba(52,88,92,0.13)" />
+              <stop offset="100%" stopColor="rgba(52,88,92,0)" />
+            </radialGradient>
+            <radialGradient id="ckMoonHalo" cx="50%" cy="50%" r="50%">
+              <stop offset="60%" stopColor="rgba(4,191,182,0)" />
+              <stop offset="82%" stopColor="rgba(4,191,182,0.16)" />
+              <stop offset="100%" stopColor="rgba(4,191,182,0)" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="92" fill="url(#ckMoonHalo)" />
+          <circle cx="100" cy="100" r="76" fill="url(#ckMoonDisc)" />
+          <g fill="url(#ckMoonCrater)">
+            <ellipse cx="78" cy="74" rx="13" ry="12" />
+            <ellipse cx="118" cy="62" rx="8" ry="7" />
+            <ellipse cx="132" cy="104" rx="17" ry="15" />
+            <ellipse cx="86" cy="120" rx="10" ry="9" />
+            <ellipse cx="108" cy="140" rx="6" ry="5" />
+            <ellipse cx="66" cy="100" rx="5" ry="5" />
+            <ellipse cx="120" cy="86" rx="4" ry="4" />
+            <ellipse cx="96" cy="98" rx="7" ry="6" />
+          </g>
+          <circle cx="100" cy="100" r="76" fill="none" stroke="rgba(255,255,255,0.34)" strokeWidth="1" />
+        </svg>
         <div className="ck-fog" aria-hidden />
         <div className="ck-motes" aria-hidden>
           <span /><span /><span /><span /><span /><span />

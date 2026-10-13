@@ -856,3 +856,43 @@ html[data-theme="light"] .ck-hero::after { opacity: .6; }
   .ck-moon { width: 52px; height: 52px; opacity: .55; filter: blur(2px); }
   .ck-hero::after { opacity: .5; }
 }
+
+/* 月轮：改为矢量 SVG 月亮（球面 + 环形山），不依赖位图分辨率 */
+.ck-moon {
+  position: absolute;
+  top: 9%;
+  right: 5%;
+  width: clamp(96px, 13vw, 168px);
+  height: clamp(96px, 13vw, 168px);
+  z-index: 1;
+  pointer-events: none;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  filter: drop-shadow(0 0 34px rgba(4, 191, 182, .22));
+  opacity: .96;
+  animation: ck-moon-pulse 7s ease-in-out infinite;
+}
+html[data-theme="light"] .ck-moon { opacity: .88; filter: drop-shadow(0 0 24px rgba(4, 191, 182, .16)); }
+
+@media (max-width: 860px) {
+  .ck-moon { top: 7%; right: 4%; width: clamp(72px, 15vw, 104px); height: clamp(72px, 15vw, 104px); }
+}
+@media (max-width: 560px) {
+  .ck-moon { top: 6%; right: 6%; width: 72px; height: 72px; opacity: .82; }
+}
+
+/* 头图：不用位图，全矢量渐变，任意分辨率清晰 */
+.ck-hero {
+  background:
+    radial-gradient(ellipse 58% 66% at 76% 22%, rgba(4, 191, 182, .26), transparent 64%),
+    radial-gradient(ellipse 44% 54% at 14% 84%, rgba(198, 178, 222, .20), transparent 62%),
+    radial-gradient(ellipse 72% 88% at 50% 50%, rgba(29, 40, 53, .0), rgba(10, 20, 26, .34) 100%),
+    linear-gradient(140deg, #122029 0%, #182d36 46%, #223d46 100%);
+}
+html[data-theme="light"] .ck-hero {
+  background:
+    radial-gradient(ellipse 58% 66% at 76% 22%, rgba(4, 191, 182, .24), transparent 64%),
+    radial-gradient(ellipse 44% 54% at 14% 84%, rgba(198, 178, 222, .18), transparent 62%),
+    linear-gradient(140deg, #16262e 0%, #1d333c 46%, #223d46 100%);
+}
