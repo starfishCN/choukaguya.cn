@@ -74,6 +74,7 @@ export default function Home() {
           </div>
         </div>
         <nav className="flex items-center gap-2 text-sm">
+          <Link href="/about" className="ck-btn-ghost">关于</Link>
           <Link href="/upload" className="ck-btn-ghost">投稿</Link>
           <Link href="/login" className="ck-btn-ghost">登录</Link>
           <Link href="/register" className="ck-btn">注册</Link>

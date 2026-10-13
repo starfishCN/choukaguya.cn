@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import PostInteractive from "./PostInteractive";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +19,6 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
     include: {
       author: { select: { name: true } },
       tags: { include: { tag: true } },
-      comments: { include: { author: { select: { name: true } } }, orderBy: { createdAt: "asc" } },
       _count: { select: { likes: true, favorites: true } },
     },
   });
@@ -57,23 +57,13 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
                 </Link>
               ))}
             </div>
-            <p className="mt-4 text-sm" style={{ color: "var(--ck-text-dim)" }}>
-              赞 {post._count.likes} · 收藏 {post._count.favorites}
-            </p>
-          </div>
 
-          <section className="ck-panel mt-4 p-5">
-            <h2 className="font-bold">评论（{post.comments.length}）</h2>
-            {post.comments.map((c) => (
-              <div key={c.id} className="mt-3 rounded-lg p-3 text-sm" style={{ background: "rgba(13,18,32,.5)", border: "1px solid var(--ck-line)" }}>
-                <span className="font-medium" style={{ color: "var(--ck-accent)" }}>{c.author.name}</span>
-                <p className="mt-1">{c.content}</p>
-              </div>
-            ))}
-            {post.comments.length === 0 && (
-              <p className="mt-3 text-sm" style={{ color: "var(--ck-text-dim)" }}>还没有评论。</p>
-            )}
-          </section>
+            <PostInteractive
+              postId={post.id}
+              initialLikes={post._count.likes}
+              initialFavs={post._count.favorites}
+            />
+          </div>
         </aside>
       </div>
     </main>
