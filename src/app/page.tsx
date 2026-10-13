@@ -67,7 +67,8 @@ export default function Home() {
   return (
     <main className="ck-shell relative z-10 pb-16">
       <header className="ck-site-header">
-        <div className="flex items-center gap-3">
+        <div className="ck-brand-row">
+          <div className="flex min-w-0 items-center gap-3">
           <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden>
             <defs>
               <radialGradient id="moonGrad" cx="35%" cy="30%">
@@ -84,6 +85,7 @@ export default function Home() {
           <div>
             <h1 className="ck-title text-xl font-bold">{t.siteTitle}</h1>
             <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>{t.siteSub}</p>
+          </div>
           </div>
         </div>
         <div className="ck-header-controls">
@@ -156,6 +158,13 @@ export default function Home() {
         </div>
       </div>
 
+      <div className="ck-section-heading">
+        <div>
+          <span className="ck-section-kicker">LATEST WORKS</span>
+          <h2 className="ck-section-title">最近收录</h2>
+        </div>
+        <span className="ck-section-note">按标签寻找同频创作</span>
+      </div>
       <div id="works" className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {posts.map((p) => (
           <Link key={p.id} href={`/posts/${p.id}`} className="ck-card overflow-hidden">
