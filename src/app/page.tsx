@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { useI18n } from "@/lib/I18nProvider";
+import LangSwitch from "@/components/LangSwitch";
 
 type Post = {
   id: string;
@@ -20,11 +22,13 @@ const CATEGORY_STYLE: Record<string, string> = {
 };
 
 export default function Home() {
+  const { t } = useI18n();
   const [posts, setPosts] = useState<Post[]>([]);
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("new");
   const [type, setType] = useState("IMAGE");
   const [suggestions, setSuggestions] = useState<{ name: string; postCount: number }[]>([]);
+  const [me, setMe] = useState<{ name: string; role: string } | null>(null);
 
   const load = useCallback(async () => {
     const r = await fetch(`/api/posts?q=${encodeURIComponent(q)}&sort=${sort}&type=${type}`);
@@ -33,6 +37,14 @@ export default function Home() {
   }, [q, sort, type]);
 
   useEffect(() => { load(); }, [load]);
+  useEffect(() => {
+    fetch("/api/me").then((r) => r.json()).then((d) => setMe(d.user));
+  }, []);
+
+  const logout = async () => {
+    await fetch("/api/me", { method: "DELETE" });
+    setMe(null);
+  };
 
   const onSearchInput = async (v: string) => {
     setQ(v);
@@ -69,35 +81,48 @@ export default function Home() {
             <circle cx="17" cy="17" r="16" fill="none" stroke="rgba(203,196,248,.45)" strokeWidth="1" />
           </svg>
           <div>
-            <h1 className="ck-title text-xl font-bold">超时空辉夜姬同人收集站</h1>
-            <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>CHOUKAGUYA · 非官方粉丝同人站</p>
+            <h1 className="ck-title text-xl font-bold">{t.siteTitle}</h1>
+            <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>{t.siteSub}</p>
           </div>
         </div>
-        <nav className="flex items-center gap-2 text-sm">
-          <Link href="/about" className="ck-btn-ghost">关于</Link>
-          <Link href="/upload" className="ck-btn-ghost">投稿</Link>
-          <Link href="/login" className="ck-btn-ghost">登录</Link>
-          <Link href="/register" className="ck-btn">注册</Link>
-        </nav>
+        <div className="flex items-center gap-2">
+          <LangSwitch />
+          <nav className="flex items-center gap-2 text-sm">
+            <Link href="/about" className="ck-btn-ghost">{t.navAbout}</Link>
+            <Link href="/upload" className="ck-btn-ghost">{t.navUpload}</Link>
+            {me ? (
+              <>
+                {me.role === "ADMIN" && <Link href="/admin" className="ck-btn-ghost">{t.navAdmin}</Link>}
+                <span className="text-sm" style={{ color: "var(--ck-text-dim)" }}>{me.name}</span>
+                <button className="ck-btn-ghost" onClick={logout}>{t.navLogout}</button>
+              </>
+            ) : (
+              <>
+                <Link href="/login" className="ck-btn-ghost">{t.navLogin}</Link>
+                <Link href="/register" className="ck-btn">{t.navRegister}</Link>
+              </>
+            )}
+          </nav>
+        </div>
       </header>
 
       <div className="ck-panel relative mb-6 flex flex-wrap gap-2 p-3">
         <input
           className="ck-input flex-1"
           style={{ minWidth: 200 }}
-          placeholder="搜索 tag（空格分隔，-tag 排除）"
+          placeholder={t.searchPlaceholder}
           value={q}
           onChange={(e) => onSearchInput(e.target.value)}
         />
         <select className="ck-input" style={{ width: 120 }} value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="IMAGE">同人图</option>
-          <option value="TEXT">同人文</option>
-          <option value="VIDEO">视频</option>
-          <option value="MUSIC">音乐</option>
+          <option value="IMAGE">{t.typeImage}</option>
+          <option value="TEXT">{t.typeText}</option>
+          <option value="VIDEO">{t.typeVideo}</option>
+          <option value="MUSIC">{t.typeMusic}</option>
         </select>
         <select className="ck-input" style={{ width: 110 }} value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="new">最新</option>
-          <option value="hot">最热</option>
+          <option value="new">{t.sortNew}</option>
+          <option value="hot">{t.sortHot}</option>
         </select>
         {suggestions.length > 0 && (
           <ul className="ck-suggest absolute top-full left-3 right-3 z-20 mt-1">
@@ -122,7 +147,7 @@ export default function Home() {
             <div className="p-3">
               <div className="truncate text-sm font-medium">{p.title}</div>
               <div className="mt-1 text-xs" style={{ color: "var(--ck-text-dim)" }}>
-                {p.authorName ?? p.author.name} · 评论 {p._count.comments} · 赞 {p._count.likes}
+                {p.authorName ?? p.author.name} · {t.comments} {p._count.comments} · {t.like} {p._count.likes}
               </div>
               {p.tags.length > 0 && (
                 <div className="mt-2 flex flex-wrap gap-1">
@@ -138,11 +163,11 @@ export default function Home() {
         ))}
       </div>
       {posts.length === 0 && (
-        <p className="py-20 text-center" style={{ color: "var(--ck-text-dim)" }}>还没有作品。来投第一张吧。</p>
+        <p className="py-20 text-center" style={{ color: "var(--ck-text-dim)" }}>{t.empty}</p>
       )}
 
       <footer className="mt-12 border-t pt-6 text-center text-xs" style={{ borderColor: "var(--ck-line)", color: "var(--ck-text-dim)" }}>
-        本站为非官方粉丝同人站，与官方无关。相关角色与作品著作权归原权利人所有。
+        {t.footer}
       </footer>
     </main>
   );

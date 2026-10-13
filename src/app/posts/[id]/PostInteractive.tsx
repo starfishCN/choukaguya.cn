@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useI18n } from "@/lib/I18nProvider";
 
 type Comment = {
   id: string;
@@ -20,6 +21,7 @@ export default function PostInteractive({
   initialFavs: number;
 }) {
   const r = useRouter();
+  const { t } = useI18n();
   const [comments, setComments] = useState<Comment[]>([]);
   const [text, setText] = useState("");
   const [replyTo, setReplyTo] = useState<string | null>(null);
@@ -93,47 +95,47 @@ export default function PostInteractive({
     <>
       <div className="mt-4 flex gap-2">
         <button className={likeActive ? "ck-btn" : "ck-btn-ghost"} onClick={() => react("like")}>
-          赞 {likes}
+          {t.like} {likes}
         </button>
         <button className={favActive ? "ck-btn" : "ck-btn-ghost"} onClick={() => react("favorite")}>
-          收藏 {favs}
+          {t.favorite} {favs}
         </button>
         <button className="ck-btn-ghost text-xs" style={{ marginLeft: "auto", color: "var(--ck-text-dim)" }}
           onClick={() => setReporting(!reporting)}>
-          {reported ? "已举报" : "举报"}
+          {reported ? t.reported : t.report}
         </button>
       </div>
 
       {reporting && !reported && (
         <div className="mt-2 flex flex-col gap-2">
-          <textarea className="ck-input" rows={2} placeholder="举报原因……"
+          <textarea className="ck-input" rows={2} placeholder={t.reportPlaceholder}
             value={reportReason} onChange={(e) => setReportReason(e.target.value)} />
-          <button className="ck-btn self-end text-xs" onClick={submitReport}>提交举报</button>
+          <button className="ck-btn self-end text-xs" onClick={submitReport}>{t.submitReport}</button>
         </div>
       )}
 
       <section className="ck-panel mt-4 p-5">
-        <h2 className="font-bold">评论（{comments.length}）</h2>
+        <h2 className="font-bold">{t.comments}（{comments.length}）</h2>
         <div className="mt-3 flex flex-col gap-2">
           {replyTo && (
             <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>
-              正在回复某条评论
-              <button className="ml-2 underline" onClick={() => setReplyTo(null)}>取消</button>
+              {t.replyingTo}
+              <button className="ml-2 underline" onClick={() => setReplyTo(null)}>{t.cancel}</button>
             </p>
           )}
           <textarea
             className="ck-input"
             rows={2}
-            placeholder="写下你的评论……"
+            placeholder={t.commentPlaceholder}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
           {err && <p className="text-sm" style={{ color: "var(--ck-danger)" }}>{err}</p>}
-          <button className="ck-btn self-end" onClick={submitComment}>发送</button>
+          <button className="ck-btn self-end" onClick={submitComment}>{t.send}</button>
         </div>
         {comments.map((c) => renderComment(c))}
         {comments.length === 0 && (
-          <p className="mt-3 text-sm" style={{ color: "var(--ck-text-dim)" }}>还没有评论。</p>
+          <p className="mt-3 text-sm" style={{ color: "var(--ck-text-dim)" }}>{t.noComments}</p>
         )}
       </section>
     </>
