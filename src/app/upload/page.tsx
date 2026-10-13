@@ -9,6 +9,22 @@ export default function Upload() {
   const [tagInput, setTagInput] = useState("");
   const [suggestions, setSuggestions] = useState<{ name: string; postCount: number }[]>([]);
   const [err, setErr] = useState("");
+  const [images, setImages] = useState<string[]>([]);
+  const [uploading, setUploading] = useState(false);
+
+  const uploadFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    setUploading(true);
+    setErr("");
+    const fd = new FormData();
+    Array.from(files).forEach((f) => fd.append("files", f));
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    setUploading(false);
+    if (res.status === 401) { r.push("/login"); return; }
+    if (!res.ok) { setErr("上传失败：" + ((await res.json()).error ?? res.status)); return; }
+    const d = await res.json();
+    setImages((prev) => [...prev, ...(d.urls ?? [])]);
+  };
 
   const onTagInput = async (v: string) => {
     setTagInput(v);
@@ -35,7 +51,7 @@ export default function Upload() {
         title: f.get("title"),
         description: f.get("description"),
         type: f.get("type"),
-        images: String(f.get("images") ?? "").split("\n").map((s) => s.trim()).filter(Boolean),
+        images,
         sourceUrl: f.get("sourceUrl") || null,
         authorName: f.get("authorName") || null,
         tags,
@@ -61,8 +77,26 @@ export default function Upload() {
             <option value="VIDEO">视频</option>
             <option value="MUSIC">音乐</option>
           </select>
-          <textarea name="images" required placeholder="图片链接，每行一个" rows={3} className="ck-input" />
-          <textarea name="description" placeholder="描述（可选）" rows={2} className="ck-input" />
+          <div className="flex flex-col gap-2">
+            <input type="file" accept="image/*" multiple
+              onChange={(e) => uploadFiles(e.target.files)}
+              className="ck-input" />
+            {uploading && <p className="text-xs" style={{ color: "var(--ck-accent)" }}>上传中……</p>}
+            {images.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {images.map((u) => (
+                  <div key={u} className="relative">
+                    <img src={u} alt="" className="h-20 w-20 rounded object-cover"
+                      style={{ border: "1px solid var(--ck-line)" }} />
+                    <button type="button" onClick={() => setImages(images.filter((x) => x !== u))}
+                      className="absolute -right-1 -top-1 rounded-full px-1 text-xs"
+                      style={{ background: "var(--ck-danger)", color: "#fff" }}>×</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+          <input name="description" placeholder="描述（可选）" className="ck-input" />
           <input name="sourceUrl" placeholder="原作出处链接（收录他人作品时填）" className="ck-input" />
           <input name="authorName" placeholder="原作者名（收录他人作品时填）" className="ck-input" />
 

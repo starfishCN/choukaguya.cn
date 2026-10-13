@@ -20,8 +20,11 @@ services:
       DATABASE_URL: postgresql://ck:${DB_PASSWORD}@db:5432/choukaguya
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NEXTAUTH_URL: https://choukaguya.cn
+      UPLOAD_DIR: /app/uploads
       HOSTNAME: 0.0.0.0
       PORT: 3000
+    volumes:
+      - uploads:/app/uploads
     depends_on: [db]
     networks: [internal]
 
@@ -40,6 +43,7 @@ services:
 
 volumes:
   pgdata:
+  uploads:
   caddy_data:
   caddy_config:
 
