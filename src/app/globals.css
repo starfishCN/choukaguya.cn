@@ -374,31 +374,31 @@ html[data-theme="light"] .ck-hero { background: var(--ck-bg-3); }
 
 /* Final theme tokens: 2 base colors + 1 accent, all spacing on an 8pt grid. */
 :root {
-  --ck-bg: #11152f;
-  --ck-bg-2: #171d3d;
-  --ck-bg-3: #202850;
-  --ck-brand: #f7f1df;
-  --ck-accent: #e8b85a;
-  --ck-pink: #e8b85a;
-  --ck-gold: #e8b85a;
-  --ck-text: #f7f1df;
-  --ck-text-dim: #c5c8d8;
-  --ck-line: rgba(247, 241, 223, .2);
-  --ck-panel: #171d3d;
-  --ck-card: #151a36;
-  --ck-shadow: 0 8px 24px rgba(5, 7, 22, .24);
+  --ck-bg: #1e364a;
+  --ck-bg-2: #243f55;
+  --ck-bg-3: #2b4d64;
+  --ck-brand: #f7f7f2;
+  --ck-accent: #00c0c3;
+  --ck-pink: #ff635d;
+  --ck-gold: #ffe48f;
+  --ck-text: #f7f7f2;
+  --ck-text-dim: #c6d9dc;
+  --ck-line: rgba(247, 247, 242, .2);
+  --ck-panel: #243f55;
+  --ck-card: #20394e;
+  --ck-shadow: 0 8px 24px rgba(10, 24, 35, .25);
 }
 html[data-theme="light"] {
   --ck-bg: #f7f1df;
   --ck-bg-2: #fffaf0;
   --ck-bg-3: #eee5cf;
-  --ck-brand: #11152f;
-  --ck-accent: #b67825;
-  --ck-pink: #b67825;
+  --ck-brand: #282828;
+  --ck-accent: #00a6a9;
+  --ck-pink: #d94e4d;
   --ck-gold: #b67825;
-  --ck-text: #11152f;
-  --ck-text-dim: #5e6378;
-  --ck-line: rgba(17, 21, 47, .18);
+  --ck-text: #282828;
+  --ck-text-dim: #5d6375;
+  --ck-line: rgba(40, 40, 40, .16);
   --ck-panel: #fffaf0;
   --ck-card: #fffaf0;
   --ck-shadow: 0 6px 18px rgba(37, 29, 10, .08);
