@@ -6,7 +6,7 @@ async function requireAdmin() {
   const uid = await getSessionUser();
   if (!uid) return null;
   const u = await prisma.user.findUnique({ where: { id: uid }, select: { role: true } });
-  return u?.role === "ADMIN" ? uid : null;
+  return u?.role === "ADMIN" || u?.role === "OWNER" ? uid : null;
 }
 
 export async function GET() {

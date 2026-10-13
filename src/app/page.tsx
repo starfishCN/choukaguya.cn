@@ -97,7 +97,7 @@ export default function Home() {
             <Link href="/upload" className="ck-btn-ghost">{t.navUpload}</Link>
             {me ? (
               <>
-                {me.role === "ADMIN" && <Link href="/admin" className="ck-btn-ghost">{t.navAdmin}</Link>}
+                {(me.role === "ADMIN" || me.role === "OWNER") && <Link href="/admin" className="ck-btn-ghost">{t.navAdmin}</Link>}
                 <span className="text-sm" style={{ color: "var(--ck-text-dim)" }}>{me.name}</span>
                 <button className="ck-btn-ghost" onClick={logout}>{t.navLogout}</button>
               </>
