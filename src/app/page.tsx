@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
 import LangSwitch from "@/components/LangSwitch";
 import ThemeSwitch from "@/components/ThemeSwitch";
+import SiteFooter from "@/components/SiteFooter";
 
 type Post = {
   id: string;
@@ -72,15 +73,15 @@ export default function Home() {
           <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden>
             <defs>
               <radialGradient id="moonGrad" cx="35%" cy="30%">
-                <stop offset="0%" stopColor="#fff8e0" />
-                <stop offset="55%" stopColor="#ffe48f" />
-                <stop offset="100%" stopColor="#cbc4f8" />
+                <stop offset="0%" stopColor="#f7ffff" />
+                <stop offset="60%" stopColor="var(--ck-accent)" />
+                <stop offset="100%" stopColor="var(--ck-brand)" />
               </radialGradient>
             </defs>
             <circle cx="17" cy="17" r="13" fill="url(#moonGrad)" opacity="0.95" />
-            <circle cx="22" cy="13" r="2.4" fill="#e4dcb8" opacity="0.5" />
-            <circle cx="12" cy="21" r="1.6" fill="#e4dcb8" opacity="0.45" />
-            <circle cx="17" cy="17" r="16" fill="none" stroke="rgba(203,196,248,.45)" strokeWidth="1" />
+            <circle cx="22" cy="13" r="2.4" fill="var(--ck-gold)" opacity="0.65" />
+            <circle cx="12" cy="21" r="1.6" fill="var(--ck-gold)" opacity="0.5" />
+            <circle cx="17" cy="17" r="16" fill="none" stroke="var(--ck-accent)" strokeOpacity=".5" strokeWidth="1" />
           </svg>
           <div>
             <h1 className="ck-title text-xl font-bold">{t.siteTitle}</h1>
@@ -192,9 +193,7 @@ export default function Home() {
         <p className="py-20 text-center" style={{ color: "var(--ck-text-dim)" }}>{t.empty}</p>
       )}
 
-      <footer className="mt-12 border-t pt-6 text-center text-xs" style={{ borderColor: "var(--ck-line)", color: "var(--ck-text-dim)" }}>
-        {t.footer}
-      </footer>
+          <SiteFooter />
     </main>
   );
 }
