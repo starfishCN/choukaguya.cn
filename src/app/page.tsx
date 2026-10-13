@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
 import LangSwitch from "@/components/LangSwitch";
+import ThemeSwitch from "@/components/ThemeSwitch";
 
 type Post = {
   id: string;
@@ -86,6 +87,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <ThemeSwitch />
           <LangSwitch />
           <nav className="flex items-center gap-2 text-sm">
             <Link href="/wiki" className="ck-btn-ghost">{t.navWiki}</Link>
@@ -106,6 +108,18 @@ export default function Home() {
           </nav>
         </div>
       </header>
+
+      <section className="ck-hero mb-6">
+        <div className="ck-hero-content">
+          <div className="ck-hero-kicker">A FAN ARCHIVE · TSUKUYOMI</div>
+          <h2>把散落的星光，<br />收进月读。</h2>
+          <p>超时空辉夜姬同人作品收集广场。按 tag 找图、找文、找音乐，也把你的创作留在这里。</p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <a href="#works" className="ck-btn">浏览作品</a>
+            <Link href="/upload" className="ck-btn-ghost">开始投稿</Link>
+          </div>
+        </div>
+      </section>
 
       <div className="ck-panel relative mb-6 flex flex-wrap gap-2 p-3">
         <input
@@ -139,7 +153,7 @@ export default function Home() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div id="works" className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {posts.map((p) => (
           <Link key={p.id} href={`/posts/${p.id}`} className="ck-card overflow-hidden">
             <div className="aspect-square overflow-hidden" style={{ background: "rgba(13,18,32,.6)" }}>
