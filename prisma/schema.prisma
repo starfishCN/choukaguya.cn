@@ -138,3 +138,39 @@ enum ReportStatus {
   RESOLVED
   DISMISSED
 }
+
+// 资料站：角色词条
+model Character {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String   // 中文名
+  nameJa      String?
+  nameEn      String?
+  cv          String?  // 声优
+  profile     String?  // 简介
+  avatarUrl   String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// 资料站：设定/音乐条目
+model Work {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  titleJa     String?
+  category    WorkCategory @default(LORE)
+  body        String?
+  coverUrl    String?
+  externalUrl String?  // 官方链接 / 试听
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum WorkCategory {
+  LORE  // 设定
+  MUSIC // 音乐
+  OTHER // 其他
+}
