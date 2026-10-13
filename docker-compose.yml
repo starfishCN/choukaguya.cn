@@ -13,19 +13,35 @@ services:
 
   app:
     build: .
+    image: choukaguya-app:latest
     container_name: ck-app
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://ck:${DB_PASSWORD}@db:5432/choukaguya
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NEXTAUTH_URL: https://choukaguya.cn
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
     depends_on: [db]
     networks: [internal]
 
-  # caddy 已在 /opt/site 运行，站点反代配置追加到其 Caddyfile
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /opt/site/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [internal]
 
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:
 
 networks:
   internal:
