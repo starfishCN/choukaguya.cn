@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ck-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ck
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: choukaguya
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks: [internal]
+
+  app:
+    build: .
+    container_name: ck-app
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://ck:${DB_PASSWORD}@db:5432/choukaguya
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: https://choukaguya.cn
+    depends_on: [db]
+    networks: [internal]
+
+  # caddy 已在 /opt/site 运行，站点反代配置追加到其 Caddyfile
+
+volumes:
+  pgdata:
+
+networks:
+  internal:

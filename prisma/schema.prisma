@@ -1,0 +1,139 @@
+// choukaguya.cn 数据库 schema v0.1
+// 主板块：同人作品收集广场（tag 检索型图站）
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String
+  passwordHash  String?
+  githubId      String?   @unique
+  avatarUrl     String?
+  role          Role      @default(USER)
+  bio           String?
+  createdAt     DateTime  @default(now())
+  posts         Post[]
+  comments      Comment[]
+  likes         Like[]
+  favorites     Favorite[]
+  reports       Report[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  type        PostType  @default(IMAGE)
+  images      String[]  // 图片存储路径列表
+  sourceUrl   String?   // 原作出处链接（收录制：非作者本人投稿时填）
+  authorName  String?   // 原作者名（收录制）
+  authorized  Boolean   @default(false) // 是否已获原作者授权
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  tags        PostTag[]
+  comments    Comment[]
+  likes       Like[]
+  favorites   Favorite[]
+  reports     Report[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum PostType {
+  IMAGE
+  TEXT
+  VIDEO
+  MUSIC
+}
+
+model Tag {
+  id         String      @id @default(cuid())
+  name       String      @unique
+  category   TagCategory @default(GENERAL)
+  aliases    TagAlias[]
+  posts      PostTag[]
+  postCount  Int         @default(0) // 热度缓存，自动补全按此排序
+  createdAt  DateTime    @default(now())
+}
+
+enum TagCategory {
+  CHARACTER // 角色
+  WORK      // 作品
+  ARTIST    // 作者
+  GENERAL   // 通用
+}
+
+model TagAlias {
+  id     String @id @default(cuid())
+  name   String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId  String
+  @@unique([name, tagId])
+}
+
+model PostTag {
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId  String
+  @@id([postId, tagId])
+}
+
+model Comment {
+  id        String    @id @default(cuid())
+  content   String
+  post      Post      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  author    User      @relation(fields: [authorId], references: [id])
+  authorId  String
+  parent    Comment?  @relation("Replies", fields: [parentId], references: [id])
+  parentId  String?
+  replies   Comment[] @relation("Replies")
+  createdAt DateTime  @default(now())
+}
+
+model Like {
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
+  @@id([userId, postId])
+}
+
+model Favorite {
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
+  @@id([userId, postId])
+}
+
+model Report {
+  id         String       @id @default(cuid())
+  reason     String
+  status     ReportStatus @default(PENDING)
+  reporter   User         @relation(fields: [reporterId], references: [id])
+  reporterId String
+  post       Post         @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId     String
+  createdAt  DateTime     @default(now())
+}
+
+enum ReportStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}
