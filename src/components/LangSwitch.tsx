@@ -5,14 +5,11 @@ import { LOCALES, LOCALE_NAMES, type Locale } from "@/lib/i18n";
 export default function LangSwitch() {
   const { locale, setLocale } = useI18n();
   return (
-    <div className="flex items-center gap-1 text-xs">
-      {LOCALES.map((l) => (
-        <button key={l}
-          onClick={() => setLocale(l as Locale)}
-          className={l === locale ? "ck-btn px-2 py-1" : "ck-btn-ghost px-2 py-1"}>
-          {LOCALE_NAMES[l]}
-        </button>
-      ))}
-    </div>
+    <label className="ck-lang-select">
+      <span className="sr-only">语言</span>
+      <select value={locale} onChange={(e) => setLocale(e.target.value as Locale)} aria-label="语言">
+        {LOCALES.map((l) => <option key={l} value={l}>{LOCALE_NAMES[l]}</option>)}
+      </select>
+    </label>
   );
 }

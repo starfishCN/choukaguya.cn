@@ -116,9 +116,8 @@ export default function Home() {
           <div className="ck-hero-kicker">A FAN ARCHIVE · TSUKUYOMI</div>
           <h2>把散落的星光，<br />收进月读。</h2>
           <p>超时空辉夜姬同人作品收集广场。按 tag 找图、找文、找音乐，也把你的创作留在这里。</p>
-          <div className="mt-5 flex flex-wrap gap-2">
+          <div className="mt-4">
             <a href="#works" className="ck-btn">浏览作品</a>
-            <Link href="/upload" className="ck-btn-ghost">开始投稿</Link>
           </div>
         </div>
       </section>
