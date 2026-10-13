@@ -49,9 +49,23 @@ export default function About() {
       </section>
 
       <section className="ck-panel mt-4 p-6">
+        <h2 className="mb-3 text-lg font-bold">站点制度</h2>
+        <p className="mb-4 text-sm" style={{ color: "var(--ck-text-dim)" }}>投稿、浏览和互动前，请阅读适用的制度页面。</p>
+        <div className="grid gap-2 text-sm sm:grid-cols-2">
+          {[
+            ["/policies/copyright", "版权与收录声明"],
+            ["/policies/submission", "投稿规则"],
+            ["/policies/takedown", "下架与投诉"],
+            ["/policies/privacy", "隐私政策"],
+            ["/policies/terms", "用户协议"],
+            ["/policies/rating", "内容分级说明"],
+          ].map(([href, label]) => <Link key={href} href={href} className="underline" style={{ color: "var(--ck-accent)" }}>{label} →</Link>)}
+        </div>
+      </section>
+      <section className="ck-panel mt-4 p-6">
         <h2 className="mb-3 text-lg font-bold">联系</h2>
         <p className="text-sm" style={{ color: "var(--ck-text-dim)" }}>
-          站长联系方式与举报渠道将在后续补充。
+          当前可使用作品页的举报功能反馈问题。版权投诉与独立联系邮箱将在投诉流程接入后公布。
         </p>
       </section>
 

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "超时空辉夜姬同人收集站",
-  description: "超时空辉夜姬非官方同人作品收集站，tag 检索型图站。",
+  description: "超时空辉夜姬非官方同人数字档案馆，以作者授权、tag 检索、作品保存和社区互动为核心。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
