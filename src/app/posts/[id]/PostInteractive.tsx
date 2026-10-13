@@ -80,8 +80,8 @@ export default function PostInteractive({
   };
 
   const renderComment = (c: Comment, depth = 0) => (
-    <div key={c.id} style={{ marginLeft: depth * 16 }} className="mt-3">
-      <div className="rounded-lg p-3 text-sm" style={{ background: "rgba(13,18,32,.5)", border: "1px solid var(--ck-line)" }}>
+    <div key={c.id} style={{ marginLeft: depth * 16 }} className="ck-comment mt-3">
+      <div className="rounded-lg p-3 text-sm" style={{ background: "var(--ck-bg-2)", border: "1px solid var(--ck-line)" }}>
         <span className="font-medium" style={{ color: "var(--ck-accent)" }}>{c.author.name}</span>
         <p className="mt-1 whitespace-pre-wrap">{c.content}</p>
         <button className="mt-1 text-xs" style={{ color: "var(--ck-text-dim)" }}

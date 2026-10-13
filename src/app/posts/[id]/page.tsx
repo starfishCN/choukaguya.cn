@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 import PostInteractive from "./PostInteractive";
 
 export const dynamic = "force-dynamic";
@@ -25,38 +27,81 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
   if (!post) notFound();
 
   return (
-    <main className="relative z-10 mx-auto max-w-6xl px-4 py-6">
-      <p className="mb-4 text-sm">
-        <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← 返回广场</Link>
-      </p>
-      <div className="flex flex-col gap-6 md:flex-row">
-        <div className="flex-1">
-          {post.images.map((src) => (
-            <img key={src} src={src} alt={post.title}
-              className="mb-3 w-full rounded-xl border" style={{ borderColor: "var(--ck-line)" }} />
-          ))}
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+
+      <nav className="ck-crumb" aria-label="面包屑">
+        <Link href="/">广场</Link>
+        <span aria-hidden>/</span>
+        <span aria-current="page">{post.title}</span>
+      </nav>
+
+      <div className="ck-section-heading ck-detail-heading">
+        <div>
+          <span className="ck-section-kicker">WORK DETAIL</span>
+          <h2 className="ck-section-title">{post.title}</h2>
         </div>
-        <aside className="w-full md:w-80">
-          <div className="ck-panel p-5">
-            <h1 className="ck-title text-lg font-bold">{post.title}</h1>
-            <p className="mt-1 text-sm" style={{ color: "var(--ck-text-dim)" }}>
-              {post.authorName ?? post.author.name}
-              {post.authorized && <span className="ck-tag ck-tag-gold ml-2">已授权</span>}
-            </p>
-            {post.description && <p className="mt-3 text-sm leading-relaxed">{post.description}</p>}
-            {post.sourceUrl && (
-              <p className="mt-3 text-sm" style={{ color: "var(--ck-text-dim)" }}>
-                出处：<a className="underline break-all" style={{ color: "var(--ck-accent)" }} href={post.sourceUrl}>{post.sourceUrl}</a>
-              </p>
+      </div>
+
+      <div className="ck-detail-grid">
+        <div className="ck-detail-media">
+          {post.images.length > 0 ? (
+            post.images.map((src, i) => (
+              <figure key={src} className="ck-figure">
+                <img src={src} alt={`${post.title}（${i + 1}）`} loading={i === 0 ? "eager" : "lazy"} />
+              </figure>
+            ))
+          ) : (
+            <p className="ck-empty-note">该作品暂无可预览图像。</p>
+          )}
+        </div>
+
+        <aside className="ck-detail-aside">
+          <div className="ck-panel ck-meta-card">
+            <dl className="ck-meta-list">
+              <div>
+                <dt>作者</dt>
+                <dd>
+                  {post.authorName ?? post.author.name}
+                  {post.authorized && <span className="ck-tag ck-tag-gold ml-2">已授权</span>}
+                </dd>
+              </div>
+              {post.sourceUrl && (
+                <div>
+                  <dt>出处</dt>
+                  <dd>
+                    <a className="ck-link break-all" href={post.sourceUrl} target="_blank" rel="noreferrer noopener">
+                      {post.sourceUrl}
+                    </a>
+                  </dd>
+                </div>
+              )}
+              <div>
+                <dt>标签</dt>
+                <dd className="ck-meta-tags">
+                  {post.tags.length > 0 ? (
+                    post.tags.map(({ tag }) => (
+                      <Link
+                        key={tag.id}
+                        href={`/?q=${encodeURIComponent(tag.name)}`}
+                        className={`ck-tag ${CATEGORY_STYLE[tag.category] ?? "ck-tag"}`}
+                      >
+                        {tag.name}
+                      </Link>
+                    ))
+                  ) : (
+                    <span className="ck-meta-none">暂无</span>
+                  )}
+                </dd>
+              </div>
+            </dl>
+
+            {post.description && (
+              <div className="ck-meta-desc">
+                <h3 className="ck-meta-desc-title">作品说明</h3>
+                <p>{post.description}</p>
+              </div>
             )}
-            <div className="mt-4 flex flex-wrap gap-2">
-              {post.tags.map(({ tag }) => (
-                <Link key={tag.id} href={`/?q=${encodeURIComponent(tag.name)}`}
-                  className={`ck-tag ${CATEGORY_STYLE[tag.category] ?? "ck-tag"}`}>
-                  {tag.name}
-                </Link>
-              ))}
-            </div>
 
             <PostInteractive
               postId={post.id}
@@ -66,6 +111,8 @@ export default async function PostPage({ params }: { params: Promise<{ id: strin
           </div>
         </aside>
       </div>
+
+      <SiteFooter />
     </main>
   );
 }
