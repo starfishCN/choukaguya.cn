@@ -65,8 +65,8 @@ export default function Home() {
   };
 
   return (
-    <main className="relative z-10 mx-auto max-w-6xl px-4 pb-16">
-      <header className="flex flex-wrap items-center justify-between gap-3 py-6">
+    <main className="ck-shell relative z-10 pb-16">
+      <header className="ck-site-header">
         <div className="flex items-center gap-3">
           <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden>
             <defs>
@@ -86,10 +86,10 @@ export default function Home() {
             <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>{t.siteSub}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="ck-header-controls">
           <ThemeSwitch />
           <LangSwitch />
-          <nav className="flex items-center gap-2 text-sm">
+          <nav className="ck-nav">
             <Link href="/wiki" className="ck-btn-ghost">{t.navWiki}</Link>
             <Link href="/about" className="ck-btn-ghost">{t.navAbout}</Link>
             <Link href="/upload" className="ck-btn-ghost">{t.navUpload}</Link>
@@ -121,36 +121,39 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="ck-panel relative mb-6 flex flex-wrap gap-2 p-3">
-        <input
-          className="ck-input flex-1"
-          style={{ minWidth: 200 }}
-          placeholder={t.searchPlaceholder}
-          value={q}
-          onChange={(e) => onSearchInput(e.target.value)}
-        />
-        <select className="ck-input" style={{ width: 120 }} value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="IMAGE">{t.typeImage}</option>
-          <option value="TEXT">{t.typeText}</option>
-          <option value="VIDEO">{t.typeVideo}</option>
-          <option value="MUSIC">{t.typeMusic}</option>
-        </select>
-        <select className="ck-input" style={{ width: 110 }} value={sort} onChange={(e) => setSort(e.target.value)}>
-          <option value="new">{t.sortNew}</option>
-          <option value="hot">{t.sortHot}</option>
-        </select>
-        {suggestions.length > 0 && (
-          <ul className="ck-suggest absolute top-full left-3 right-3 z-20 mt-1">
-            {suggestions.map((s) => (
-              <li key={s.name}>
-                <button className="flex w-full justify-between px-3 py-2 text-left text-sm" onClick={() => pick(s.name)}>
-                  <span>{s.name}</span>
-                  <span style={{ color: "var(--ck-text-dim)" }}>{s.postCount}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+      <div className="ck-filterbar ck-panel relative mb-6">
+        <div className="ck-search-wrap">
+          <input
+            className="ck-input"
+            placeholder={t.searchPlaceholder}
+            value={q}
+            onChange={(e) => onSearchInput(e.target.value)}
+          />
+          {suggestions.length > 0 && (
+            <ul className="ck-suggest absolute top-full left-0 right-0 z-20 mt-1">
+              {suggestions.map((s) => (
+                <li key={s.name}>
+                  <button className="flex w-full justify-between px-3 py-2 text-left text-sm" onClick={() => pick(s.name)}>
+                    <span>{s.name}</span>
+                    <span style={{ color: "var(--ck-text-dim)" }}>{s.postCount}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div className="ck-filter-controls">
+          <select className="ck-input" value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="IMAGE">{t.typeImage}</option>
+            <option value="TEXT">{t.typeText}</option>
+            <option value="VIDEO">{t.typeVideo}</option>
+            <option value="MUSIC">{t.typeMusic}</option>
+          </select>
+          <select className="ck-input" value={sort} onChange={(e) => setSort(e.target.value)}>
+            <option value="new">{t.sortNew}</option>
+            <option value="hot">{t.sortHot}</option>
+          </select>
+        </div>
       </div>
 
       <div id="works" className="grid grid-cols-2 gap-4 md:grid-cols-4">
