@@ -517,6 +517,9 @@ html[data-theme="light"] {
 }
 body { background: var(--ck-bg); background-image: none; }
 html[data-theme="light"] body { background: var(--ck-bg); }
+html[data-theme="light"] .ck-hero { background: radial-gradient(ellipse 60% 70% at 78% 25%, rgba(244,211,94,.08), transparent 62%), linear-gradient(135deg, #061842, #0A2463); }
+html[data-theme="light"] .ck-hero h2, html[data-theme="light"] .ck-hero p { color: #FDFBF6; }
+html[data-theme="light"] .ck-hero p { color: rgba(253,251,246,.72); }
 .ck-stars::before { display: none; }
 .ck-panel, .ck-card { backdrop-filter: none; box-shadow: var(--ck-shadow); }
 .ck-btn { color: #FDFBF6; background: var(--ck-pink); border-color: var(--ck-pink); border-radius: 4px; }
