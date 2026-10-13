@@ -6,10 +6,12 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const q = searchParams.get("q") ?? "";
   const sort = searchParams.get("sort") ?? "new";
+  const type = searchParams.get("type");
   const include = q.trim().split(/\s+/).filter((t) => t && !t.startsWith("-"));
   const exclude = q.trim().split(/\s+/).filter((t) => t.startsWith("-")).map((t) => t.slice(1));
   const posts = await prisma.post.findMany({
     where: {
+      ...(type ? { type: type as "IMAGE" | "TEXT" | "VIDEO" | "MUSIC" } : {}),
       AND: [
         ...include.map((t) => ({
           tags: { some: { tag: { name: { contains: t, mode: "insensitive" as const } } } },

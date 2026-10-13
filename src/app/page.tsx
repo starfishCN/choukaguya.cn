@@ -12,17 +12,25 @@ type Post = {
   _count: { comments: number; likes: number };
 };
 
+const CATEGORY_STYLE: Record<string, string> = {
+  CHARACTER: "ck-tag-pink",
+  WORK: "ck-tag-gold",
+  ARTIST: "ck-tag",
+  GENERAL: "ck-tag",
+};
+
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("new");
+  const [type, setType] = useState("IMAGE");
   const [suggestions, setSuggestions] = useState<{ name: string; postCount: number }[]>([]);
 
   const load = useCallback(async () => {
-    const r = await fetch(`/api/posts?q=${encodeURIComponent(q)}&sort=${sort}`);
+    const r = await fetch(`/api/posts?q=${encodeURIComponent(q)}&sort=${sort}&type=${type}`);
     const d = await r.json();
     setPosts(d.posts ?? []);
-  }, [q, sort]);
+  }, [q, sort, type]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -44,33 +52,59 @@ export default function Home() {
   };
 
   return (
-    <main className="mx-auto max-w-5xl p-4">
-      <header className="flex items-center justify-between py-4">
-        <h1 className="text-xl font-bold">超时空辉夜姬同人收集站</h1>
-        <nav className="flex gap-3 text-sm">
-          <Link href="/upload" className="underline">投稿</Link>
-          <Link href="/login" className="underline">登录</Link>
-          <Link href="/register" className="underline">注册</Link>
+    <main className="relative z-10 mx-auto max-w-6xl px-4 pb-16">
+      <header className="flex flex-wrap items-center justify-between gap-3 py-6">
+        <div className="flex items-center gap-3">
+          <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden>
+            <defs>
+              <radialGradient id="moonGrad" cx="35%" cy="30%">
+                <stop offset="0%" stopColor="#fff8e0" />
+                <stop offset="55%" stopColor="#ffe48f" />
+                <stop offset="100%" stopColor="#cbc4f8" />
+              </radialGradient>
+            </defs>
+            <circle cx="17" cy="17" r="13" fill="url(#moonGrad)" opacity="0.95" />
+            <circle cx="22" cy="13" r="2.4" fill="#e4dcb8" opacity="0.5" />
+            <circle cx="12" cy="21" r="1.6" fill="#e4dcb8" opacity="0.45" />
+            <circle cx="17" cy="17" r="16" fill="none" stroke="rgba(203,196,248,.45)" strokeWidth="1" />
+          </svg>
+          <div>
+            <h1 className="ck-title text-xl font-bold">超时空辉夜姬同人收集站</h1>
+            <p className="text-xs" style={{ color: "var(--ck-text-dim)" }}>CHOUKAGUYA · 非官方粉丝同人站</p>
+          </div>
+        </div>
+        <nav className="flex items-center gap-2 text-sm">
+          <Link href="/upload" className="ck-btn-ghost">投稿</Link>
+          <Link href="/login" className="ck-btn-ghost">登录</Link>
+          <Link href="/register" className="ck-btn">注册</Link>
         </nav>
       </header>
 
-      <div className="relative mb-4 flex gap-2">
+      <div className="ck-panel relative mb-6 flex flex-wrap gap-2 p-3">
         <input
-          className="w-full rounded border px-3 py-2 text-black"
+          className="ck-input flex-1"
+          style={{ minWidth: 200 }}
           placeholder="搜索 tag（空格分隔，-tag 排除）"
           value={q}
           onChange={(e) => onSearchInput(e.target.value)}
         />
-        <select className="rounded border px-2 text-black" value={sort} onChange={(e) => setSort(e.target.value)}>
+        <select className="ck-input" style={{ width: 120 }} value={type} onChange={(e) => setType(e.target.value)}>
+          <option value="IMAGE">同人图</option>
+          <option value="TEXT">同人文</option>
+          <option value="VIDEO">视频</option>
+          <option value="MUSIC">音乐</option>
+        </select>
+        <select className="ck-input" style={{ width: 110 }} value={sort} onChange={(e) => setSort(e.target.value)}>
           <option value="new">最新</option>
           <option value="hot">最热</option>
         </select>
         {suggestions.length > 0 && (
-          <ul className="absolute top-11 left-0 z-10 w-full rounded border bg-white text-black shadow">
+          <ul className="ck-suggest absolute top-full left-3 right-3 z-20 mt-1">
             {suggestions.map((s) => (
               <li key={s.name}>
-                <button className="flex w-full justify-between px-3 py-1 hover:bg-gray-100" onClick={() => pick(s.name)}>
-                  <span>{s.name}</span><span className="text-gray-400">{s.postCount}</span>
+                <button className="flex w-full justify-between px-3 py-2 text-left text-sm" onClick={() => pick(s.name)}>
+                  <span>{s.name}</span>
+                  <span style={{ color: "var(--ck-text-dim)" }}>{s.postCount}</span>
                 </button>
               </li>
             ))}
@@ -78,20 +112,35 @@ export default function Home() {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {posts.map((p) => (
-          <Link key={p.id} href={`/posts/${p.id}`} className="rounded border p-2 hover:shadow">
-            <div className="aspect-square overflow-hidden rounded bg-gray-800">
+          <Link key={p.id} href={`/posts/${p.id}`} className="ck-card overflow-hidden">
+            <div className="aspect-square overflow-hidden" style={{ background: "rgba(13,18,32,.6)" }}>
               {p.images[0] && <img src={p.images[0]} alt={p.title} className="h-full w-full object-cover" />}
             </div>
-            <div className="mt-1 truncate text-sm font-medium">{p.title}</div>
-            <div className="text-xs text-gray-400">{p.authorName ?? p.author.name} · 评论{p._count.comments} · 赞{p._count.likes}</div>
+            <div className="p-3">
+              <div className="truncate text-sm font-medium">{p.title}</div>
+              <div className="mt-1 text-xs" style={{ color: "var(--ck-text-dim)" }}>
+                {p.authorName ?? p.author.name} · 评论 {p._count.comments} · 赞 {p._count.likes}
+              </div>
+              {p.tags.length > 0 && (
+                <div className="mt-2 flex flex-wrap gap-1">
+                  {p.tags.slice(0, 3).map(({ tag }) => (
+                    <span key={tag.name} className={`ck-tag ${CATEGORY_STYLE[tag.category] ?? "ck-tag"}`}>
+                      {tag.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </Link>
         ))}
       </div>
-      {posts.length === 0 && <p className="py-16 text-center text-gray-500">还没有作品。来投第一张吧。</p>}
+      {posts.length === 0 && (
+        <p className="py-20 text-center" style={{ color: "var(--ck-text-dim)" }}>还没有作品。来投第一张吧。</p>
+      )}
 
-      <footer className="py-8 text-center text-xs text-gray-500">
+      <footer className="mt-12 border-t pt-6 text-center text-xs" style={{ borderColor: "var(--ck-line)", color: "var(--ck-text-dim)" }}>
         本站为非官方粉丝同人站，与官方无关。相关角色与作品著作权归原权利人所有。
       </footer>
     </main>
