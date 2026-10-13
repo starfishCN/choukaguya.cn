@@ -1,6 +1,6 @@
+"use client";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
-
 export default function SiteFooter() {
   const { t } = useI18n();
   return (
