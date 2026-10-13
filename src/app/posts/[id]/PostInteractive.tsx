@@ -28,6 +28,9 @@ export default function PostInteractive({
   const [likeActive, setLikeActive] = useState(false);
   const [favActive, setFavActive] = useState(false);
   const [err, setErr] = useState("");
+  const [reporting, setReporting] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const [reported, setReported] = useState(false);
 
   useEffect(() => {
     fetch(`/api/comments?postId=${postId}`)
@@ -63,6 +66,17 @@ export default function PostInteractive({
     else { setFavs(d.count); setFavActive(d.active); }
   };
 
+  const submitReport = async () => {
+    if (!reportReason.trim()) return;
+    const res = await fetch("/api/report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ postId, reason: reportReason }),
+    });
+    if (res.status === 401) { r.push("/login"); return; }
+    if (res.ok) { setReported(true); setReporting(false); setReportReason(""); }
+  };
+
   const renderComment = (c: Comment, depth = 0) => (
     <div key={c.id} style={{ marginLeft: depth * 16 }} className="mt-3">
       <div className="rounded-lg p-3 text-sm" style={{ background: "rgba(13,18,32,.5)", border: "1px solid var(--ck-line)" }}>
@@ -84,7 +98,19 @@ export default function PostInteractive({
         <button className={favActive ? "ck-btn" : "ck-btn-ghost"} onClick={() => react("favorite")}>
           收藏 {favs}
         </button>
+        <button className="ck-btn-ghost text-xs" style={{ marginLeft: "auto", color: "var(--ck-text-dim)" }}
+          onClick={() => setReporting(!reporting)}>
+          {reported ? "已举报" : "举报"}
+        </button>
       </div>
+
+      {reporting && !reported && (
+        <div className="mt-2 flex flex-col gap-2">
+          <textarea className="ck-input" rows={2} placeholder="举报原因……"
+            value={reportReason} onChange={(e) => setReportReason(e.target.value)} />
+          <button className="ck-btn self-end text-xs" onClick={submitReport}>提交举报</button>
+        </div>
+      )}
 
       <section className="ck-panel mt-4 p-5">
         <h2 className="font-bold">评论（{comments.length}）</h2>
