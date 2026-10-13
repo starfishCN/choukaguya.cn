@@ -685,3 +685,133 @@ html[data-theme="light"] .ck-hero {
 .ck-tag-gold { color: var(--ck-gold); border-color: rgba(255, 228, 143, .45); }
 .ck-site-footer strong { color: var(--ck-accent); }
 ::selection { background: var(--ck-accent); color: #14232a; }
+
+/* ============================================================
+   月色朦胧泛光动效
+   参考：官方站 fog（两层反向横向平移）+ KV 视差（c0-c3）+ lantern 呼吸
+   实现：纯 CSS 径向渐变自绘雾层，不引外部图片
+   ============================================================ */
+@keyframes ck-drift {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes ck-drift-rev {
+  0%   { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes ck-breathe {
+  0%, 100% { opacity: .34; transform: scale(1); }
+  50%      { opacity: .62; transform: scale(1.06); }
+}
+@keyframes ck-moon-pulse {
+  0%, 100% { opacity: .78; }
+  50%      { opacity: 1; }
+}
+@keyframes ck-rise {
+  0%   { transform: translate3d(0, 0, 0); opacity: .22; }
+  50%  { opacity: .40; }
+  100% { transform: translate3d(0, -14px, 0); opacity: .22; }
+}
+
+.ck-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* 远景：大范围青绿泛光，缓慢呼吸 */
+.ck-hero::after {
+  content: "";
+  position: absolute;
+  inset: -20% -10%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 42% at 74% 30%, rgba(4, 191, 182, .40), transparent 68%),
+    radial-gradient(30% 34% at 22% 76%, rgba(198, 178, 222, .26), transparent 70%),
+    radial-gradient(26% 30% at 58% 88%, rgba(238, 109, 96, .16), transparent 72%);
+  filter: blur(28px);
+  animation: ck-breathe 9s ease-in-out infinite;
+}
+
+/* 雾层：两层反向横向平移，形成月色朦胧 */
+.ck-fog,
+.ck-fog::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8%;
+  height: 62%;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background-repeat: repeat-x;
+  background-size: 50% 100%;
+  background-image:
+    radial-gradient(46% 58% at 18% 62%, rgba(242, 236, 228, .16), transparent 62%),
+    radial-gradient(40% 52% at 46% 74%, rgba(4, 191, 182, .14), transparent 64%),
+    radial-gradient(50% 60% at 78% 58%, rgba(242, 236, 228, .12), transparent 66%);
+}
+.ck-fog {
+  opacity: .85;
+  animation: ck-drift 60s linear infinite;
+}
+.ck-fog::after {
+  opacity: .55;
+  animation: ck-drift-rev 80s linear infinite;
+}
+
+/* 月轮：泛光脉动 */
+.ck-moon {
+  position: absolute;
+  top: 14%;
+  right: 9%;
+  width: 132px;
+  height: 132px;
+  z-index: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 38% 34%, #f7ffff 0 18%, rgba(4, 191, 182, .85) 46%, rgba(4, 191, 182, .18) 66%, transparent 72%);
+  box-shadow:
+    0 0 60px 18px rgba(4, 191, 182, .28),
+    0 0 140px 52px rgba(4, 191, 182, .14);
+  animation: ck-moon-pulse 6s ease-in-out infinite;
+}
+
+/* 浮尘：缓慢上浮 */
+.ck-motes {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.ck-motes span {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 228, 143, .75);
+  box-shadow: 0 0 8px rgba(255, 228, 143, .55);
+  animation: ck-rise 11s ease-in-out infinite;
+}
+.ck-motes span:nth-child(1) { left: 12%; bottom: 24%; animation-delay: 0s; }
+.ck-motes span:nth-child(2) { left: 28%; bottom: 38%; animation-delay: 2.4s; }
+.ck-motes span:nth-child(3) { left: 46%; bottom: 18%; animation-delay: 4.1s; }
+.ck-motes span:nth-child(4) { left: 63%; bottom: 44%; animation-delay: 1.3s; }
+.ck-motes span:nth-child(5) { left: 79%; bottom: 30%; animation-delay: 5.6s; }
+.ck-motes span:nth-child(6) { left: 88%; bottom: 52%; animation-delay: 3.2s; }
+
+.ck-hero-content { position: relative; z-index: 2; }
+
+/* 浅色主题下降低强度，避免糊 */
+html[data-theme="light"] .ck-hero::after { opacity: .78; filter: blur(26px); }
+html[data-theme="light"] .ck-fog { opacity: .5; }
+html[data-theme="light"] .ck-fog::after { opacity: .3; }
+html[data-theme="light"] .ck-moon { box-shadow: 0 0 48px 12px rgba(4, 191, 182, .22), 0 0 110px 40px rgba(4, 191, 182, .10); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ck-hero::after, .ck-fog, .ck-fog::after, .ck-moon, .ck-motes span {
+    animation: none !important;
+  }
+}

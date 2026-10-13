@@ -61,6 +61,11 @@ export default function Home() {
       <SiteHeader />
 
       <section className="ck-hero mb-6">
+        <div className="ck-moon" aria-hidden />
+        <div className="ck-fog" aria-hidden />
+        <div className="ck-motes" aria-hidden>
+          <span /><span /><span /><span /><span /><span />
+        </div>
         <div className="ck-hero-content">
           <div className="ck-hero-kicker">A FAN ARCHIVE · TSUKUYOMI</div>
           <h2>把散落的星光，<br />收进月读。</h2>
