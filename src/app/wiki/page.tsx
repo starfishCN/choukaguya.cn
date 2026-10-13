@@ -31,15 +31,15 @@ export default function Wiki() {
   return (
     <main className="relative z-10 mx-auto max-w-5xl px-4 py-8">
       <p className="mb-4 text-sm">
-        <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← {t.navAbout === "关于" ? "返回广场" : "Back"}</Link>
+        <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← {t.backToPlaza}</Link>
       </p>
-      <h1 className="ck-title mb-6 text-2xl font-bold">资料站</h1>
+      <h1 className="ck-title mb-6 text-2xl font-bold">{t.wikiTitle}</h1>
 
       <div className="mb-6 flex gap-2">
         {([
-          ["characters", "角色"],
-          ["lore", "设定"],
-          ["music", "音乐"],
+          ["characters", t.wikiChar],
+          ["lore", t.wikiLore],
+          ["music", t.wikiMusic],
         ] as const).map(([k, label]) => (
           <button key={k} onClick={() => setTab(k)} className={tab === k ? "ck-btn" : "ck-btn-ghost"}>
             {label}

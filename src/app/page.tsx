@@ -88,7 +88,7 @@ export default function Home() {
         <div className="flex items-center gap-2">
           <LangSwitch />
           <nav className="flex items-center gap-2 text-sm">
-            <Link href="/wiki" className="ck-btn-ghost">资料站</Link>
+            <Link href="/wiki" className="ck-btn-ghost">{t.navWiki}</Link>
             <Link href="/about" className="ck-btn-ghost">{t.navAbout}</Link>
             <Link href="/upload" className="ck-btn-ghost">{t.navUpload}</Link>
             {me ? (

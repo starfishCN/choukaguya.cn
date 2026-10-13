@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useI18n } from "@/lib/I18nProvider";
 
 export default function Login() {
   const r = useRouter();
+  const { t } = useI18n();
   const [err, setErr] = useState("");
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -15,22 +17,22 @@ export default function Login() {
       body: JSON.stringify({ email: f.get("email"), password: f.get("password") }),
     });
     if (res.ok) r.push("/");
-    else setErr("邮箱或密码错误");
+    else setErr(t.loginFail);
   };
   return (
     <main className="relative z-10 mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-4">
       <div className="ck-panel p-7">
-        <h1 className="ck-title mb-1 text-lg font-bold">登录</h1>
-        <p className="mb-5 text-xs" style={{ color: "var(--ck-text-dim)" }}>欢迎回到月读空间</p>
+        <h1 className="ck-title mb-1 text-lg font-bold">{t.loginTitle}</h1>
+        <p className="mb-5 text-xs" style={{ color: "var(--ck-text-dim)" }}>{t.loginWelcome}</p>
         <form onSubmit={submit} className="flex flex-col gap-3">
-          <input name="email" type="email" required placeholder="邮箱" className="ck-input" />
-          <input name="password" type="password" required placeholder="密码" className="ck-input" />
+          <input name="email" type="email" required placeholder={t.email} className="ck-input" />
+          <input name="password" type="password" required placeholder={t.password} className="ck-input" />
           {err && <p className="text-sm" style={{ color: "var(--ck-danger)" }}>{err}</p>}
-          <button className="ck-btn mt-1">登录</button>
+          <button className="ck-btn mt-1">{t.loginTitle}</button>
         </form>
         <p className="mt-6 text-xs" style={{ color: "var(--ck-text-dim)" }}>
-          还没有账号？<Link href="/register" className="underline" style={{ color: "var(--ck-accent)" }}>注册</Link>
-          {" · "}<Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>返回广场</Link>
+          {t.noAccount}<Link href="/register" className="underline" style={{ color: "var(--ck-accent)" }}>{t.navRegister}</Link>
+          {" · "}<Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>{t.backToPlaza}</Link>
         </p>
       </div>
     </main>
