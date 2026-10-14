@@ -981,7 +981,7 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-card, .ck-home-box, .ck-panel { border: 1px solid #f0e2e8 !important; background: #fdf7f9 !important; box-shadow: 6px 8px 16px rgba(167,140,152,.14), -5px -5px 12px rgba(255,255,255,.95) !important; }
 .ck-card:hover, .ck-home-box:hover { background: #fff !important; }
 .ck-home-hero { padding-bottom: 10px; }
-.ck-home-hero-slides { border-radius: 6px; }
+.ck-home-hero-slides { border-radius: 14px; }
 .ck-home-intro { padding: 30px 10px 16px !important; }
 .ck-filterbar .ck-input, .ck-filterbar .ck-suggest { box-shadow: none !important; border: 1px solid #eadde2 !important; }
 .ck-site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid #f0e2e8; padding: 12px 0 !important; }
