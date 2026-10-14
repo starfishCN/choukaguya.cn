@@ -37,16 +37,16 @@ export default function SiteHeader() {
         <ThemeSwitch />
         <LangSwitch />
         <nav className="ck-nav">
-          <Link href="/wiki" className="ck-btn-ghost">{t.navWiki}</Link>
-          <Link href="/about" className="ck-btn-ghost">{t.navAbout}</Link>
-          <Link href="/upload" className="ck-btn-ghost">{t.navUpload}</Link>
+          <Link href="/wiki" className="ck-nav-link">{t.navWiki}</Link>
+          <Link href="/about" className="ck-nav-link">{t.navAbout}</Link>
+          <Link href="/upload" className="ck-nav-link">{t.navUpload}</Link>
           {me ? (
             <>
               {(me.role === "ADMIN" || me.role === "OWNER") && (
-                <Link href="/admin" className="ck-btn-ghost">{t.navAdmin}</Link>
+                <Link href="/admin" className="ck-nav-link">{t.navAdmin}</Link>
               )}
               <span className="text-sm" style={{ color: "var(--ck-text-dim)" }}>{me.name}</span>
-              <button className="ck-btn-ghost" onClick={logout}>{t.navLogout}</button>
+              <button className="ck-nav-link" onClick={logout}>{t.navLogout}</button>
             </>
           ) : (
             <>

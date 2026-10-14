@@ -993,3 +993,12 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-lang-item { display: block; width: 100%; text-align: left; padding: 7px 10px; font-size: 13px; color: var(--ck-text); background: none; border: 0; border-radius: 7px; cursor: pointer; }
 .ck-lang-item:hover { background: #f7edf1; }
 .ck-lang-active { color: var(--ck-brand); font-weight: 600; }
+
+/* 顶栏导航去按钮化：纯文字触发，登录/注册保留按钮 */
+.ck-nav .ck-nav-link {
+  background: none; border: 0; box-shadow: none;
+  padding: 5px 8px; font-size: 13.5px; color: var(--ck-text-dim);
+  cursor: pointer; border-radius: 6px; transition: color .15s ease, background .15s ease;
+}
+.ck-nav .ck-nav-link:hover { color: var(--ck-brand); background: #f7edf1; }
+.ck-nav .ck-nav-link:active { background: #f0dde4; }
