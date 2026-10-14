@@ -78,7 +78,7 @@ export default function Home() {
             <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image embla__slide" />
           ))}</div>
         </div>
-        <EditableBlocks pageKey="home" fallback={{ "intro.kicker": "COSMIC PRINCESS KAGUYA!", "intro.title": "把散落的星光，收进月读。", "intro.sub": "按标签寻找创作，收藏每一份来自月读的回响。", "notice.text": "" }} controls />
+        <EditableBlocks pageKey="home" fallback={{ "intro.kicker": "COSMIC PRINCESS KAGUYA!", "intro.title": "把散落的星光，收进月读。", "intro.sub": "按标签寻找创作，收藏每一份来自月读的回响。", "notice.text": "" }} />
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">
         <div className="ck-home-box ck-home-search-box"><div className="ck-home-box-heading"><span>FIND</span><h2>寻找作品</h2></div>

@@ -109,24 +109,6 @@ export default function EditableBlocks({ pageKey, fallback, controls }: Props) {
 
   return (
     <>
-      {controls && isAdmin && (
-        <>
-          <button
-            type="button"
-            className={`ck-inline-edit-fab${editing ? " done" : ""}`}
-            onClick={() => setEditing((v) => !v)}
-          >
-            {editing ? "✓ 完成" : "✎ 编辑本页"}
-          </button>
-          {editing && (
-            <div className="ck-inline-edit-tip" onClick={() => setEditing(false)}>
-              编辑中：直接点页面文字修改，改完自动保存。点此或按 Esc 退出。
-              {status && <b>{status}</b>}
-            </div>
-          )}
-        </>
-      )}
-
       {canEdit && !noticeText && <T k="notice.text" tag="p" className="ck-inline-edit-notice-placeholder" />}
 
       {noticeText && (
