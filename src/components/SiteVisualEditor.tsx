@@ -2,8 +2,8 @@
 /* 全元素可视化编辑器（升级版）：移植自 wolf-fansite-design editor.js
    新增：图片替换、动效预设、字体下拉、Markdown 块、持久化走 /api/page-content */
 import { useEffect, useRef, useState, useCallback } from "react";
+import { usePathname } from "next/navigation";
 
-type Props = { pageKey: string };
 type Snapshot = {
   styles: { path: string; style: string; text: string | null; hidden: boolean; anim?: string }[];
   added: { parent: string; html: string; left?: string; top?: string }[];
@@ -29,7 +29,9 @@ const FONTS: [string, string][] = [
   ["monospace", "等宽"],
 ];
 
-export default function SiteVisualEditor({ pageKey }: Props) {
+export default function SiteVisualEditor() {
+  const pathname = usePathname();
+  const pageKey = pathname === "/" ? "home" : pathname.replace(/^\//, "").split("/")[0] || "home";
   const [isAdmin, setIsAdmin] = useState(false);
   const [on, setOn] = useState(false);
   const [status, setStatus] = useState("");

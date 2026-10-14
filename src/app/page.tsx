@@ -151,4 +151,4 @@ export default function Home() {
     </main>
   );
 }
-<SiteVisualEditor pageKey="home" />
+
