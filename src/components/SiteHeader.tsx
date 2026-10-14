@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
 import LangSwitch from "@/components/LangSwitch";
-import ThemeSwitch from "@/components/ThemeSwitch";
 
 type Me = { name: string; role: string } | null;
 
@@ -34,7 +33,6 @@ export default function SiteHeader() {
         </Link>
       </div>
       <div className="ck-header-controls">
-        <ThemeSwitch />
         <LangSwitch />
         <nav className="ck-nav">
           <Link href="/wiki" className="ck-nav-link">{t.navWiki}</Link>
