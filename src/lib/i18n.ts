@@ -6,7 +6,7 @@ export const LOCALE_NAMES: Record<Locale, string> = { zh: "中文", ja: "日本�
 export const dict = {
   zh: {
     siteTitle: "超时空辉夜姬同人收集站",
-    siteSub: "CHOUKAGUYA · 非官方粉丝同人站",
+    siteSub: "超かぐや姫！ · 非官方粉丝同人站",
     navAbout: "关于",
     navUpload: "投稿",
     navLogin: "登录",
@@ -68,7 +68,7 @@ export const dict = {
   },
   ja: {
     siteTitle: "超かぐや姫 同人収集サイト",
-    siteSub: "CHOUKAGUYA · 非公式ファンサイト",
+    siteSub: "超かぐや姫！ · 非公式ファンサイト",
     navAbout: "概要",
     navUpload: "投稿",
     navLogin: "ログイン",
@@ -130,7 +130,7 @@ export const dict = {
   },
   en: {
     siteTitle: "Cosmic Princess Kaguya Fan Archive",
-    siteSub: "CHOUKAGUYA · Unofficial fan site",
+    siteSub: "Cosmic Princess Kaguya! · Unofficial fan site",
     navAbout: "About",
     navUpload: "Submit",
     navLogin: "Log in",

@@ -970,3 +970,26 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-input:focus { box-shadow: inset 4px 4px 8px rgba(167, 140, 152, .16), inset -4px -4px 8px rgba(255, 255, 255, .95), 0 0 0 3px color-mix(in srgb, var(--ck-accent) 16%, transparent); }
 .ck-tag { border-color: transparent; box-shadow: 2px 2px 5px rgba(167, 140, 152, .14), -2px -2px 5px rgba(255, 255, 255, .85); }
 .ck-theme-switch:hover { border-color: transparent; }
+
+/* 拟态调整 v2：按钮动效、卡片区分度、顶栏常驻、语言下拉、搜索盒去上阴影 */
+.ck-btn { transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+.ck-btn:hover { transform: translateY(-3px) scale(1.02); box-shadow: 8px 10px 18px rgba(167,140,152,.34), -6px -6px 12px rgba(255,255,255,.95); }
+.ck-btn:active { transform: translateY(1px) scale(.98); transition-duration: .08s; }
+.ck-btn-ghost { transition: transform .18s ease, box-shadow .18s ease; }
+.ck-btn-ghost:hover { transform: translateY(-2px); }
+.ck-btn-ghost:active { transform: translateY(1px) scale(.98); transition-duration: .08s; }
+.ck-card, .ck-home-box, .ck-panel { border: 1px solid #f0e2e8 !important; background: #fdf7f9 !important; box-shadow: 6px 8px 16px rgba(167,140,152,.14), -5px -5px 12px rgba(255,255,255,.95) !important; }
+.ck-card:hover, .ck-home-box:hover { background: #fff !important; }
+.ck-home-hero { padding-bottom: 10px; }
+.ck-home-hero-slides { border-radius: 6px; }
+.ck-home-intro { padding: 30px 10px 16px !important; }
+.ck-filterbar .ck-input, .ck-filterbar .ck-suggest { box-shadow: none !important; border: 1px solid #eadde2 !important; }
+.ck-site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid #f0e2e8; padding: 12px 0 !important; }
+.ck-lang-drop { position: relative; }
+.ck-lang-trigger { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px; font-size: 13px; color: var(--ck-text-dim); background: none; border: 0; cursor: pointer; border-radius: 6px; transition: color .15s ease, background .15s ease; }
+.ck-lang-trigger:hover { color: var(--ck-brand); background: #f7edf1; }
+.ck-lang-caret { font-size: 9px; opacity: .7; }
+.ck-lang-menu { position: absolute; right: 0; top: calc(100% + 6px); min-width: 132px; background: #fff; border-radius: 10px; box-shadow: 0 10px 26px rgba(90,50,65,.16); padding: 6px; z-index: 60; list-style: none; margin: 0; }
+.ck-lang-item { display: block; width: 100%; text-align: left; padding: 7px 10px; font-size: 13px; color: var(--ck-text); background: none; border: 0; border-radius: 7px; cursor: pointer; }
+.ck-lang-item:hover { background: #f7edf1; }
+.ck-lang-active { color: var(--ck-brand); font-weight: 600; }

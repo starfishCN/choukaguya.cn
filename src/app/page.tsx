@@ -76,10 +76,10 @@ export default function Home() {
             <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image embla__slide" />
           ))}</div>
         </div>
-        <div className="ck-home-intro"><span>TSUKUYOMI FAN ARCHIVE</span><h2>把散落的星光，收进月读。</h2><p>按标签寻找创作，收藏每一份来自月读的回响。</p></div>
+        <div className="ck-home-intro"><span>COSMIC PRINCESS KAGUYA!</span><h2>把散落的星光，收进月读。</h2><p>按标签寻找创作，收藏每一份来自月读的回响。</p></div>
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">
-        <div className="ck-home-box ck-home-search-box"><div className="ck-home-box-heading"><span>01 / FIND</span><h2>寻找作品</h2></div>
+        <div className="ck-home-box ck-home-search-box"><div className="ck-home-box-heading"><span>FIND</span><h2>寻找作品</h2></div>
       <div className="ck-filterbar ck-panel relative mb-6">
         <div className="ck-search-wrap">
           <input
@@ -114,7 +114,7 @@ export default function Home() {
           </select>
         </div>
       </div></div>
-        <div className="ck-home-box ck-home-category-box"><div className="ck-home-box-heading"><span>02 / EXPLORE</span><h2>分类与热门标签</h2></div><div className="ck-home-category-links"><Link href="/wiki">角色</Link><Link href="/wiki">作品类型</Link><Link href="/wiki">创作者</Link><Link href="/wiki">全部标签</Link></div></div>
+        <div className="ck-home-box ck-home-category-box"><div className="ck-home-box-heading"><span>EXPLORE</span><h2>分类与热门标签</h2></div><div className="ck-home-category-links"><Link href="/wiki">角色</Link><Link href="/wiki">作品类型</Link><Link href="/wiki">创作者</Link><Link href="/wiki">全部标签</Link></div></div>
       </section>
       <div className="ck-section-heading">
         <div>
