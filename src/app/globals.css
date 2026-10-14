@@ -1002,3 +1002,14 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 }
 .ck-nav .ck-nav-link:hover { color: var(--ck-brand); background: #f7edf1; }
 .ck-nav .ck-nav-link:active { background: #f0dde4; }
+
+/* 就地编辑模式（移植自 wolf-fansite editor，升级为无面板就地编辑） */
+.ck-inline-edit-fab{position:fixed;left:16px;bottom:16px;z-index:10001;border:0;border-radius:999px;padding:11px 18px;background:var(--ck-brand,#d86b8c);color:#fff;font:600 14px system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 18px rgba(216,107,140,.4);transition:transform .15s ease,box-shadow .15s ease}
+.ck-inline-edit-fab:hover{transform:translateY(-2px)}
+.ck-inline-edit-fab.done{background:#5aa469;box-shadow:0 6px 18px rgba(90,164,105,.4)}
+.ck-inline-edit-tip{position:fixed;left:16px;bottom:64px;z-index:10001;background:#fff;border-radius:10px;padding:10px 14px;font:13px/1.5 system-ui,sans-serif;color:#7a4a5c;box-shadow:0 8px 24px rgba(167,140,152,.25);cursor:pointer;max-width:320px}
+.ck-inline-edit-tip b{display:block;margin-top:4px;color:#5aa469;font-weight:600}
+body.ck-editing-on [data-editing="1"]{outline:1.5px dashed rgba(216,107,140,.5);outline-offset:3px;border-radius:4px;cursor:text}
+body.ck-editing-on [data-editing="1"]:focus{outline:2px solid #d86b8c;outline-offset:3px}
+.ck-inline-edit-notice-placeholder{min-height:20px;padding:10px 14px;background:#fdf3f6;border-radius:8px;border:1.5px dashed #d86b8c;color:#c98da2;font-size:14px;margin:0 0 14px}
+.ck-inline-edit-notice-placeholder:empty::before{content:"＋ 点此添加公告文字"}

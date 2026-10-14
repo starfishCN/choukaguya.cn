@@ -43,7 +43,7 @@ export default function SiteHeader() {
               {(me.role === "ADMIN" || me.role === "OWNER") && (
                 <>
                   <Link href="/admin" className="ck-nav-link">{t.navAdmin}</Link>
-                  <Link href="/edit" className="ck-nav-link">{t.navEdit ?? "编辑页面"}</Link>
+                  
                 </>
               )}
               <span className="text-sm" style={{ color: "var(--ck-text-dim)" }}>{me.name}</span>

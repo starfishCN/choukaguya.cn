@@ -77,7 +77,7 @@ export default function Home() {
             <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image embla__slide" />
           ))}</div>
         </div>
-        <EditableBlocks pageKey="home" slots={["intro"]} fallback={{ intro: { kicker: "COSMIC PRINCESS KAGUYA!", title: "把散落的星光，收进月读。", sub: "按标签寻找创作，收藏每一份来自月读的回响。" } }} />
+        <EditableBlocks pageKey="home" fallback={{ "intro.kicker": "COSMIC PRINCESS KAGUYA!", "intro.title": "把散落的星光，收进月读。", "intro.sub": "按标签寻找创作，收藏每一份来自月读的回响。", "notice.text": "" }} controls />
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">
         <div className="ck-home-box ck-home-search-box"><div className="ck-home-box-heading"><span>FIND</span><h2>寻找作品</h2></div>
@@ -117,7 +117,7 @@ export default function Home() {
       </div></div>
         <div className="ck-home-box ck-home-category-box"><div className="ck-home-box-heading"><span>EXPLORE</span><h2>分类与热门标签</h2></div><div className="ck-home-category-links"><Link href="/wiki">角色</Link><Link href="/wiki">作品类型</Link><Link href="/wiki">创作者</Link><Link href="/wiki">全部标签</Link></div></div>
       </section>
-      <EditableBlocks pageKey="home" slots={["latest"]} fallback={{ latest: { kicker: "LATEST WORKS", title: "最近收录", note: "按标签寻找同频创作" } }} />
+      <EditableBlocks pageKey="home" fallback={{ "latest.kicker": "LATEST WORKS", "latest.title": "最近收录", "latest.note": "按标签寻找同频创作" }} />
       <div id="works" className="ck-home-works grid grid-cols-2 gap-5 md:grid-cols-3">
         {posts.map((p) => (
           <Link key={p.id} href={`/posts/${p.id}`} className="ck-card overflow-hidden">
