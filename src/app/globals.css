@@ -940,3 +940,6 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-home-hero-slides.embla { overflow:hidden; }
 .ck-home-hero-track { display:flex; height:100%; backface-visibility:hidden; }
 .ck-home-hero-track .ck-home-hero-image { position:relative; inset:auto; flex:0 0 100%; min-width:100%; height:100%; opacity:1; transition:none; }
+
+/* Embla fade：交叉淡化，滚动交由插件以透明度呈现 */
+.ck-home-hero-track.embla__container .ck-home-hero-image { transition:opacity .25s; }

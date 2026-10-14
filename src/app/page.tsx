@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
 import useEmblaCarousel from "embla-carousel-react";
+import { fade } from "embla-carousel-fade";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -39,7 +40,7 @@ export default function Home() {
 
   useEffect(() => { load(); }, [load]);
   const heroImages = ["/official/kv.jpg", "/official/kv2.jpg", "/official/kv3.jpg"];
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28 });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28 }, [fade()]);
   useEffect(() => {
     if (!emblaApi) return;
     const t = setInterval(() => emblaApi.scrollNext(), 6000);
