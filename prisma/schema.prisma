@@ -175,3 +175,11 @@ enum WorkCategory {
   MUSIC // 音乐
   OTHER // 其他
 }
+
+// 可视化编辑：页面内容块（Puck JSON）
+model PageContent {
+  id        String   @id @default(cuid())
+  pageKey   String   @unique // home / about / policies-xxx
+  data      String   // Puck data JSON
+  updatedAt DateTime @updatedAt
+}
