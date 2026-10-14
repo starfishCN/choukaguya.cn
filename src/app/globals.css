@@ -939,3 +939,34 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 
 /* Embla fade：交叉淡化，滚动交由插件以透明度呈现 */
 .ck-home-hero-track.embla__container .ck-home-hero-image { transition:opacity .25s; }
+
+/* 拟态风格全站覆盖层：只改阴影形态，配色与圆角不动 */
+.ck-panel, .ck-card, .ck-home-box, .ck-auth-box, .ck-suggest {
+  border-color: transparent;
+  box-shadow: 7px 7px 14px rgba(167, 140, 152, .16), -7px -7px 14px rgba(255, 255, 255, .9);
+}
+.ck-card:hover, .ck-home-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 10px 12px 22px rgba(167, 140, 152, .22), -8px -8px 18px rgba(255, 255, 255, .95);
+}
+.ck-btn {
+  border-color: transparent;
+  box-shadow: 5px 5px 10px rgba(167, 140, 152, .28), -4px -4px 9px rgba(255, 255, 255, .85);
+}
+.ck-btn:hover { transform: translateY(-1px); filter: brightness(1.05); box-shadow: 6px 7px 14px rgba(167, 140, 152, .32), -5px -5px 11px rgba(255, 255, 255, .9); }
+.ck-btn:active { transform: translateY(0); box-shadow: inset 4px 4px 8px rgba(120, 70, 90, .3), inset -3px -3px 7px rgba(255, 255, 255, .55); }
+.ck-btn-ghost, .ck-theme-switch {
+  border-color: transparent;
+  background: #fff;
+  box-shadow: 4px 4px 9px rgba(167, 140, 152, .2), -4px -4px 9px rgba(255, 255, 255, .9);
+}
+.ck-btn-ghost:hover { transform: translateY(-1px); background: #fff; box-shadow: 5px 6px 12px rgba(167, 140, 152, .26), -5px -5px 11px rgba(255, 255, 255, .95); }
+.ck-btn-ghost:active { box-shadow: inset 3px 3px 7px rgba(120, 70, 90, .18), inset -3px -3px 7px rgba(255, 255, 255, .8); }
+.ck-input {
+  border-color: transparent;
+  background: #fff;
+  box-shadow: inset 4px 4px 8px rgba(167, 140, 152, .16), inset -4px -4px 8px rgba(255, 255, 255, .95);
+}
+.ck-input:focus { box-shadow: inset 4px 4px 8px rgba(167, 140, 152, .16), inset -4px -4px 8px rgba(255, 255, 255, .95), 0 0 0 3px color-mix(in srgb, var(--ck-accent) 16%, transparent); }
+.ck-tag { border-color: transparent; box-shadow: 2px 2px 5px rgba(167, 140, 152, .14), -2px -2px 5px rgba(255, 255, 255, .85); }
+.ck-theme-switch:hover { border-color: transparent; }
