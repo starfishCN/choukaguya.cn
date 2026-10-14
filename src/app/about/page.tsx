@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 
 export const metadata = {
   title: "关于本站 · 超时空辉夜姬同人收集站",
@@ -6,7 +7,9 @@ export const metadata = {
 
 export default function About() {
   return (
-    <main className="relative z-10 mx-auto max-w-2xl px-4 py-10">
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <div className="mx-auto max-w-2xl px-4 py-10">
       <p className="mb-6 text-sm">
         <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← 返回广场</Link>
       </p>
@@ -72,6 +75,7 @@ export default function About() {
       <footer className="mt-10 text-center text-xs" style={{ color: "var(--ck-text-dim)" }}>
         本站为非官方粉丝同人站，与官方无关。相关角色与作品著作权归原权利人所有。
       </footer>
+    </div>
     </main>
   );
 }

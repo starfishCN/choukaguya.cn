@@ -984,7 +984,9 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-home-hero-slides { border-radius: 0; }
 .ck-home-intro { padding: 30px 10px 16px !important; }
 .ck-filterbar .ck-input, .ck-filterbar .ck-suggest { box-shadow: none !important; border: 1px solid #eadde2 !important; }
-.ck-site-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid #f0e2e8; padding: 12px 0 !important; }
+/* sticky 顶栏：背景用全宽伪元素延伸到视口两侧，两侧不露内容 */
+.ck-site-header { position: sticky; top: 0; z-index: 50; padding: 12px 0 !important; border-bottom: 1px solid #f0e2e8; background: transparent; }
+.ck-site-header::before { content: ""; position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 100vw; height: 100%; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: -1; }
 .ck-lang-drop { position: relative; }
 .ck-lang-trigger { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px; font-size: 13px; color: var(--ck-text-dim); background: none; border: 0; cursor: pointer; border-radius: 6px; transition: color .15s ease, background .15s ease; }
 .ck-lang-trigger:hover { color: var(--ck-brand); background: #f7edf1; }

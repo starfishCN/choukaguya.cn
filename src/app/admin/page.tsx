@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 
 type Report = {
   id: string;
@@ -51,14 +52,19 @@ export default function Admin() {
 
   if (denied)
     return (
-      <main className="relative z-10 mx-auto max-w-2xl px-4 py-16 text-center">
+      <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <div className="mx-auto max-w-2xl px-4 py-16 text-center">
         <p className="text-sm" style={{ color: "var(--ck-danger)" }}>无权限。请用管理员账号登录。</p>
         <Link href="/login" className="ck-btn mt-4 inline-flex">去登录</Link>
-      </main>
+            </div>
+    </main>
     );
 
   return (
-    <main className="relative z-10 mx-auto max-w-5xl px-4 py-8">
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <div className="mx-auto max-w-5xl px-4 py-8">
       <header className="mb-6 flex items-center justify-between">
         <h1 className="ck-title text-xl font-bold">管理后台</h1>
         <Link href="/" className="ck-btn-ghost text-sm">返回前台</Link>
@@ -105,6 +111,7 @@ export default function Admin() {
           ))}
         </div>
       </section>
+          </div>
     </main>
   );
 }

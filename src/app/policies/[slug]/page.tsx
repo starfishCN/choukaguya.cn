@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteHeader from "@/components/SiteHeader";
 import { notFound } from "next/navigation";
 
 type Policy = {
@@ -80,7 +81,9 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
   const policy = policies[slug];
   if (!policy) notFound();
   return (
-    <main className="relative z-10 mx-auto max-w-3xl px-4 py-10">
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <div className="mx-auto max-w-3xl px-4 py-10">
       <p className="mb-6 text-sm"><Link href="/about" className="underline" style={{ color: "var(--ck-accent)" }}>← 返回关于本站</Link></p>
       <header className="mb-6">
         <p className="mb-2 text-xs uppercase tracking-[.22em]" style={{ color: "var(--ck-gold)" }}>SITE POLICY</p>
@@ -97,6 +100,7 @@ export default async function PolicyPage({ params }: { params: Promise<{ slug: s
         ))}
       </section>
       <p className="mt-6 text-center text-xs" style={{ color: "var(--ck-text-dim)" }}>本页面为站点运营规则，不构成法律意见。</p>
+    </div>
     </main>
   );
 }
