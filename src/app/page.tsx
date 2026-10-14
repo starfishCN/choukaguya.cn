@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
+import useEmblaCarousel from "embla-carousel-react";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -38,11 +39,13 @@ export default function Home() {
 
   useEffect(() => { load(); }, [load]);
   const heroImages = ["/official/kv.jpg", "/official/kv2.jpg", "/official/kv3.jpg"];
-  const [heroIdx, setHeroIdx] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28 });
   useEffect(() => {
-    const t = setInterval(() => setHeroIdx((i) => (i + 1) % heroImages.length), 6000);
+    if (!emblaApi) return;
+    const t = setInterval(() => emblaApi.scrollNext(), 6000);
+    emblaApi.on("pointerDown", () => clearInterval(t));
     return () => clearInterval(t);
-  }, [heroImages.length]);
+  }, [emblaApi]);
 
 
   const onSearchInput = async (v: string) => {
@@ -67,9 +70,11 @@ export default function Home() {
       <SiteHeader />
 
       <section className="ck-home-hero" aria-label="官方主视觉">
-        <div className="ck-home-hero-slides">{heroImages.map((src, i) => (
-          <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className={"ck-home-hero-image" + (i === heroIdx ? " is-active" : "")} />
-        ))}</div>
+        <div className="ck-home-hero-slides embla" ref={emblaRef}>
+          <div className="ck-home-hero-track embla__container">{heroImages.map((src) => (
+            <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image embla__slide" />
+          ))}</div>
+        </div>
         <div className="ck-home-intro"><span>TSUKUYOMI FAN ARCHIVE</span><h2>把散落的星光，收进月读。</h2><p>按标签寻找创作，收藏每一份来自月读的回响。</p></div>
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">

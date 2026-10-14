@@ -935,3 +935,8 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-crumb { display:flex; gap:8px; align-items:center; margin:18px 0 6px; font-size:13px; color:var(--ck-text-dim); }
 .ck-crumb a { color:#b15b74; } .ck-crumb span::before { content:"/ "; color:#c9b8bf; }
 .ck-auth-box { max-width:400px; margin:48px auto 0; }
+
+/* Embla 轮播：滚动容器交给库，淡出效果靠 transform 平移过渡 */
+.ck-home-hero-slides.embla { overflow:hidden; }
+.ck-home-hero-track { display:flex; height:100%; backface-visibility:hidden; }
+.ck-home-hero-track .ck-home-hero-image { position:relative; inset:auto; flex:0 0 100%; min-width:100%; height:100%; opacity:1; transition:none; }
