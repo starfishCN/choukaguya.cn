@@ -644,6 +644,8 @@ export default function SiteVisualEditor() {
     };
     const onDocClick = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest("#ck-ved-panel,#ck-ved-handles,#ck-ved-fab,#ck-ved-guides")) return;
+      /* 顶栏导航链接放行：编辑模式下点击仍可正常跳转 */
+      if ((e.target as HTMLElement).closest(".ck-site-header a[href]")) return;
       const el = (e.target as HTMLElement).closest("body *") as HTMLElement | null;
       if (!el || el === document.body || isProt(el)) return;
       e.preventDefault(); e.stopPropagation();
