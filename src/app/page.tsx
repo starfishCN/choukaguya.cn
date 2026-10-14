@@ -5,6 +5,7 @@ import { useI18n } from "@/lib/I18nProvider";
 import useEmblaCarousel from "embla-carousel-react";
 import fade from "embla-carousel-fade";
 import SiteHeader from "@/components/SiteHeader";
+import EditableBlocks from "@/components/EditableBlocks";
 import SiteFooter from "@/components/SiteFooter";
 
 type Post = {
@@ -76,7 +77,7 @@ export default function Home() {
             <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image embla__slide" />
           ))}</div>
         </div>
-        <div className="ck-home-intro"><span>COSMIC PRINCESS KAGUYA!</span><h2>把散落的星光，收进月读。</h2><p>按标签寻找创作，收藏每一份来自月读的回响。</p></div>
+        <EditableBlocks pageKey="home" slots={["intro"]} fallback={{ intro: { kicker: "COSMIC PRINCESS KAGUYA!", title: "把散落的星光，收进月读。", sub: "按标签寻找创作，收藏每一份来自月读的回响。" } }} />
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">
         <div className="ck-home-box ck-home-search-box"><div className="ck-home-box-heading"><span>FIND</span><h2>寻找作品</h2></div>
@@ -116,13 +117,7 @@ export default function Home() {
       </div></div>
         <div className="ck-home-box ck-home-category-box"><div className="ck-home-box-heading"><span>EXPLORE</span><h2>分类与热门标签</h2></div><div className="ck-home-category-links"><Link href="/wiki">角色</Link><Link href="/wiki">作品类型</Link><Link href="/wiki">创作者</Link><Link href="/wiki">全部标签</Link></div></div>
       </section>
-      <div className="ck-section-heading">
-        <div>
-          <span className="ck-section-kicker">LATEST WORKS</span>
-          <h2 className="ck-section-title">最近收录</h2>
-        </div>
-        <span className="ck-section-note">按标签寻找同频创作</span>
-      </div>
+      <EditableBlocks pageKey="home" slots={["latest"]} fallback={{ latest: { kicker: "LATEST WORKS", title: "最近收录", note: "按标签寻找同频创作" } }} />
       <div id="works" className="ck-home-works grid grid-cols-2 gap-5 md:grid-cols-3">
         {posts.map((p) => (
           <Link key={p.id} href={`/posts/${p.id}`} className="ck-card overflow-hidden">
