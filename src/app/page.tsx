@@ -3,7 +3,7 @@ import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
 import useEmblaCarousel from "embla-carousel-react";
-import { fade } from "embla-carousel-fade";
+import fade from "embla-carousel-fade";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
