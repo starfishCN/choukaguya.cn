@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import fade from "embla-carousel-fade";
 import SiteHeader from "@/components/SiteHeader";
 import EditableBlocks from "@/components/EditableBlocks";
+import SiteVisualEditor from "@/components/SiteVisualEditor";
 import SiteFooter from "@/components/SiteFooter";
 
 type Post = {
@@ -150,3 +151,4 @@ export default function Home() {
     </main>
   );
 }
+<SiteVisualEditor pageKey="home" />

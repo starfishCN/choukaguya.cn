@@ -1013,3 +1013,88 @@ body.ck-editing-on [data-editing="1"]{outline:1.5px dashed rgba(216,107,140,.5);
 body.ck-editing-on [data-editing="1"]:focus{outline:2px solid #d86b8c;outline-offset:3px}
 .ck-inline-edit-notice-placeholder{min-height:20px;padding:10px 14px;background:#fdf3f6;border-radius:8px;border:1.5px dashed #d86b8c;color:#c98da2;font-size:14px;margin:0 0 14px}
 .ck-inline-edit-notice-placeholder:empty::before{content:"＋ 点此添加公告文字"}
+
+/* ===== 全元素可视化编辑器（ck-ved）===== */
+#ck-ved-fab{position:fixed;left:16px;bottom:16px;z-index:10010;border:0;border-radius:999px;padding:11px 18px;background:var(--ck-brand,#d86b8c);color:#fff;font:600 14px system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 18px rgba(216,107,140,.4);transition:transform .15s ease}
+#ck-ved-fab:hover{transform:translateY(-2px)}
+#ck-ved-fab.done{background:#5aa469;box-shadow:0 6px 18px rgba(90,164,105,.4)}
+.ck-ved-toast{position:fixed;left:16px;bottom:64px;z-index:10012;background:#fff;border-radius:10px;padding:9px 14px;font:13px/1.4 system-ui,sans-serif;color:#7a4a5c;box-shadow:0 8px 24px rgba(167,140,152,.25);max-width:320px}
+#ck-ved-panel{position:fixed;right:12px;top:70px;width:300px;max-height:min(70vh,600px);z-index:10011;background:#fff;color:#4a3340;border-radius:12px;box-shadow:0 12px 34px rgba(167,140,152,.3);font:13px/1.5 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;display:flex;flex-direction:column;overflow:hidden;border:1px solid #f0dbe3}
+#ck-ved-panel.ck-min{width:230px;max-height:none}
+#ck-ved-panel.ck-min #ck-ved-body{display:none}
+#ck-ved-head{padding:11px 13px;background:var(--ck-brand,#d86b8c);color:#fff;display:flex;align-items:center;gap:8px;cursor:move;user-select:none;touch-action:none}
+#ck-ved-head b{font-size:13px;letter-spacing:.06em}
+#ck-ved-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px;opacity:.85}
+#ck-ved-head button{border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer}
+#ck-ved-head button.off{opacity:.55}
+#ck-ved-head #ck-ved-close{font-size:15px;border:0}
+#ck-ved-body{flex:1;overflow:auto;padding:10px 12px}
+.ck-ved-hint{color:#b08a99;font-size:12px;padding:6px 0;line-height:1.7}
+.ck-ved-sec{border-bottom:1px solid #f5e8ed;padding:8px 0 12px}
+.ck-ved-sec h4{margin:2px 0 8px;font-size:11px;color:#c08da0;letter-spacing:.14em}
+.ck-ved-row{display:flex;align-items:center;gap:7px;margin:6px 0}
+.ck-ved-row label{flex:0 0 60px;color:#8a6575;font-size:12px}
+.ck-ved-row input[type=text],.ck-ved-row input[type=number],.ck-ved-row select,.ck-ved-row textarea{flex:1;min-width:0;padding:6px 7px;border:1px solid #eccfd9;border-radius:6px;background:#fff;font:12px/1.5 system-ui,sans-serif}
+.ck-ved-row textarea{resize:vertical;white-space:pre-wrap}
+.ck-ved-row input[type=range]{flex:1;min-width:0;accent-color:#d86b8c}
+.ck-ved-row input[type=color]{width:36px;height:25px;padding:0;border:1px solid #eccfd9;border-radius:5px}
+.ck-ved-row output{width:44px;text-align:right;color:#c08da0;font:11px ui-monospace,monospace}
+.ck-num{width:50px !important;flex:0 0 50px !important;text-align:right;font:11px ui-monospace,monospace}
+.ck-mini{flex:0 0 auto;border:1px solid #eccfd9;background:#fff;border-radius:5px;padding:4px 7px;font-size:11px;cursor:pointer;white-space:nowrap}
+.ck-mini:hover{background:#fdf3f6}
+.ck-ved-btns{display:flex;gap:6px;flex-wrap:wrap}
+.ck-ved-btns button{border:1px solid #eccfd9;background:#fff;border-radius:6px;padding:6px 9px;font-size:12px;cursor:pointer}
+.ck-ved-btns button.primary{background:#d86b8c;border-color:#d86b8c;color:#fff;font-weight:600}
+.ck-ved-btns button.danger{color:#b23a5a;border-color:#e7b7c4}
+#ck-ved-foot{padding:9px 12px;border-top:1px solid #f5e8ed;display:flex;align-items:center;gap:8px}
+#ck-ved-status{flex:1;font-size:11px;color:#c08da0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ck-ved-save{border:0;border-radius:6px;padding:7px 14px;background:#d86b8c;color:#fff;font:600 12px system-ui,sans-serif;cursor:pointer}
+#ck-ved-save:hover{filter:brightness(1.08)}
+/* 图层树 */
+#ck-ved-tree{font-size:12px}
+.ck-tree-node{margin:2px 0}
+.ck-tree-line{display:flex;align-items:center;gap:4px;padding:4px 6px;border-radius:5px;cursor:pointer}
+.ck-tree-line:hover{background:#fdf3f6}
+.ck-tree-line.sel{background:rgba(216,107,140,.14);color:#b23a5a;font-weight:600}
+.ck-tree-tg{width:16px;height:16px;border:0;background:transparent;color:#c08da0;cursor:pointer;padding:0}
+.ck-tree-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ck-tree-kind{color:#c08da0;font:10px ui-monospace,monospace}
+.ck-tree-children{padding-left:14px;border-left:1px solid #f5e8ed;margin-left:8px}
+/* 选中态与把手 */
+.ck-ved-target{outline:2px solid #d86b8c !important;outline-offset:2px !important}
+body.ck-ved-editing{cursor:default}
+body.ck-ved-editing .ck-ved-target{cursor:move}
+.ck-ved-dragging{opacity:.85;outline-style:dashed !important}
+body.ck-ved-lock{-webkit-user-select:none !important;user-select:none !important;overscroll-behavior:contain}
+body.ck-ved-snapping .ck-ved-target{outline-color:#e1a64b !important}
+#ck-ved-handles{position:fixed;z-index:10009;pointer-events:none;display:none;border:1px dashed rgba(216,107,140,.55)}
+.ck-ved-handle{position:absolute;width:20px;height:20px;margin:-10px;background:transparent;z-index:10009;pointer-events:auto;touch-action:none}
+.ck-ved-handle::after{content:'';position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;background:#fff;border:2px solid #d86b8c;border-radius:2px;box-sizing:border-box}
+.ck-ved-handle:hover::after{background:#f2c14e}
+.ck-ved-handle[data-h=nw],.ck-ved-handle[data-h=se]{cursor:nwse-resize}
+.ck-ved-handle[data-h=ne],.ck-ved-handle[data-h=sw]{cursor:nesw-resize}
+.ck-ved-handle[data-h=n],.ck-ved-handle[data-h=s]{cursor:ns-resize}
+.ck-ved-handle[data-h=e],.ck-ved-handle[data-h=w]{cursor:ew-resize}
+/* 磁吸辅助线 */
+#ck-ved-guides{position:fixed;left:0;top:0;right:0;bottom:0;pointer-events:none;z-index:10008}
+.ck-ved-guide{position:absolute;background:#e1a64b}
+.ck-ved-guide.v{top:0;bottom:0;width:1px}
+.ck-ved-guide.h{left:0;right:0;height:1px}
+.ck-ved-guide.at-center{background:#d86b8c;width:2px;margin-left:-.5px}
+.ck-ved-guide.at-center.h{height:2px;margin-left:0;margin-top:-.5px}
+/* 动效预设 */
+@keyframes ckFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes ckFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes ckPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes ckShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes ckPop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes ckSlideL{from{transform:translateX(-40px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes ckSlideR{from{transform:translateX(40px);opacity:0}to{transform:translateX(0);opacity:1}}
+.ck-anim-fadein{animation:ckFadeIn .8s ease both}
+.ck-anim-float{animation:ckFloat 3s ease-in-out infinite}
+.ck-anim-pulse{animation:ckPulse 2s ease-in-out infinite}
+.ck-anim-shake{animation:ckShake .5s ease 2}
+.ck-anim-pop{animation:ckPop .6s cubic-bezier(.34,1.56,.64,1) both}
+.ck-anim-slide-l{animation:ckSlideL .7s ease both}
+.ck-anim-slide-r{animation:ckSlideR .7s ease both}
+@media(max-width:600px){#ck-ved-panel{width:min(300px,88vw);right:8px;top:60px}#ck-ved-fab{left:8px;bottom:8px}}
