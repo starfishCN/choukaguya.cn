@@ -918,3 +918,9 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 #works .ck-card img { transition:transform .25s ease; } #works .ck-card:hover { transform:translateY(-2px); border-color:#d9a4b5; box-shadow:0 10px 24px rgba(70,34,48,.1); } #works .ck-card:hover img { transform:scale(1.025); }
 .ck-tag-pink,.ck-tag-gold { color:#854257; border-color:#ead0d9; }
 @media(max-width:700px) { .ck-home-discovery{grid-template-columns:1fr}.ck-home-box{padding:16px}.ck-filterbar{grid-template-columns:1fr}.ck-filter-controls{display:grid;grid-template-columns:1fr 1fr}.ck-home-hero-image{height:220px}.ck-home-works{grid-template-columns:1fr !important}.ck-home-works .ck-card{display:grid;grid-template-columns:42% 1fr;align-items:stretch}.ck-home-works .ck-card>.aspect-square{height:100%;min-height:130px}.ck-home-works .ck-card>.p-3{padding:12px}.ck-section-title{font-size:24px} }
+
+/* 品牌月标同步新方向：粉酒暖色，去青绿 */
+:root, html[data-theme="light"] { --ck-brand:#9a3d45; }
+.ck-site-header svg circle[fill="url(#moonGrad)"] { fill:#b15b74; }
+.ck-site-header svg circle[fill="url(#moonGrad)"] ~ circle[fill="var(--ck-gold)"] { fill:#e9b47c; }
+.ck-site-header svg circle[stroke] { stroke:#d8a3b4; stroke-opacity:.6; }
