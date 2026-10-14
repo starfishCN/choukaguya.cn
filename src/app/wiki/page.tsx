@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 type Character = {
   id: string; slug: string; name: string; nameJa: string | null; nameEn: string | null;
@@ -29,11 +31,15 @@ export default function Wiki() {
   const music = works.filter((w) => w.category === "MUSIC");
 
   return (
-    <main className="relative z-10 mx-auto max-w-5xl px-4 py-8">
-      <p className="mb-4 text-sm">
-        <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← {t.backToPlaza}</Link>
-      </p>
-      <h1 className="ck-title mb-6 text-2xl font-bold">{t.wikiTitle}</h1>
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <nav className="ck-crumb"><Link href="/">{t.backToPlaza}</Link><span>wiki</span></nav>
+      <div className="ck-section-heading">
+        <div>
+          <span className="ck-section-kicker">ENCYCLOPEDIA</span>
+          <h2 className="ck-section-title">{t.wikiTitle}</h2>
+        </div>
+      </div>
 
       <div className="mb-6 flex gap-2">
         {([
@@ -99,6 +105,7 @@ export default function Wiki() {
         style={{ borderColor: "var(--ck-line)", color: "var(--ck-text-dim)" }}>
         {t.footer}
       </footer>
+      <SiteFooter />
     </main>
   );
 }

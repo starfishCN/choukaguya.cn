@@ -930,3 +930,8 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-home-hero-slides .ck-home-hero-image { position:absolute; inset:0; height:100%; opacity:0; transition:opacity 1.6s ease; }
 .ck-home-hero-slides .ck-home-hero-image.is-active { opacity:1; }
 @media(max-width:700px) { .ck-home-hero-slides { height:220px; } }
+
+/* 公共页面套用首页样板：面包屑与认证盒 */
+.ck-crumb { display:flex; gap:8px; align-items:center; margin:18px 0 6px; font-size:13px; color:var(--ck-text-dim); }
+.ck-crumb a { color:#b15b74; } .ck-crumb span::before { content:"/ "; color:#c9b8bf; }
+.ck-auth-box { max-width:400px; margin:48px auto 0; }

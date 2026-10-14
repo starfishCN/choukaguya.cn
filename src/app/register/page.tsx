@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
+import SiteHeader from "@/components/SiteHeader";
 
 export default function Register() {
   const r = useRouter();
@@ -20,8 +21,9 @@ export default function Register() {
     else setErr((await res.json()).error ?? t.registerFail);
   };
   return (
-    <main className="relative z-10 mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-4">
-      <div className="ck-panel p-7">
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <div className="ck-auth-box ck-panel p-7">
         <h1 className="ck-title mb-1 text-lg font-bold">{t.registerTitle}</h1>
         <p className="mb-5 text-xs" style={{ color: "var(--ck-text-dim)" }}>{t.registerWelcome}</p>
         <form onSubmit={submit} className="flex flex-col gap-3">

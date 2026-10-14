@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useI18n } from "@/lib/I18nProvider";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function Upload() {
   const r = useRouter();
@@ -65,10 +67,10 @@ export default function Upload() {
   };
 
   return (
-    <main className="relative z-10 mx-auto max-w-lg px-4 py-8">
-      <p className="mb-4 text-sm">
-        <Link href="/" className="underline" style={{ color: "var(--ck-accent)" }}>← {t.backToPlaza}</Link>
-      </p>
+    <main className="ck-shell relative z-10 pb-16">
+      <SiteHeader />
+      <nav className="ck-crumb"><Link href="/">{t.backToPlaza}</Link><span>upload</span></nav>
+      <div className="mx-auto max-w-lg">
       <div className="ck-panel p-7">
         <h1 className="ck-title mb-5 text-lg font-bold">{t.uploadTitle}</h1>
         <form onSubmit={submit} className="flex flex-col gap-3">
@@ -136,6 +138,8 @@ export default function Upload() {
           <button className="ck-btn mt-1">{t.publish}</button>
         </form>
       </div>
+      </div>
+      <SiteFooter />
     </main>
   );
 }
