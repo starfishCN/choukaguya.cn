@@ -62,6 +62,9 @@ export default function SiteVisualEditor({ pageKey }: Props) {
 
   useEffect(() => {
     if (!on || !isAdmin) return;
+    let killer = () => {};
+    (async () => {
+    try {
     const IGNORE =
       "#ck-ved-fab,#ck-ved-panel,#ck-ved-guides,#ck-ved-handles,script,style,link,noscript";
     let records: { id2?: string; el: HTMLElement; parent: HTMLElement | null; collapsed: boolean; name: string; kind: string }[] = [];
@@ -678,7 +681,17 @@ export default function SiteVisualEditor({ pageKey }: Props) {
       window.removeEventListener("resize", positionHandles);
       document.body.classList.remove("ck-ved-editing");
       panel.remove(); handlesBox.remove(); guidesBox.remove();
+      killer();
     };
+    } catch (err) {
+      console.error("[ck-ved] init failed:", err);
+      const t = document.createElement("div");
+      t.style.cssText = "position:fixed;left:16px;bottom:64px;z-index:10012;background:#b23a5a;color:#fff;padding:10px 14px;border-radius:8px;font:12px system-ui;max-width:360px";
+      t.textContent = "编辑器初始化失败: " + String(err);
+      document.body.appendChild(t);
+      killer = () => t.remove();
+    }
+    })();
   }, [on, isAdmin, say, persist]);
 
   if (!isAdmin) return null;
