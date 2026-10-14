@@ -37,6 +37,12 @@ export default function Home() {
   }, [q, sort, type]);
 
   useEffect(() => { load(); }, [load]);
+  const heroImages = ["/official/kv.jpg", "/official/kv2.jpg", "/official/kv3.jpg"];
+  const [heroIdx, setHeroIdx] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setHeroIdx((i) => (i + 1) % heroImages.length), 6000);
+    return () => clearInterval(t);
+  }, [heroImages.length]);
 
 
   const onSearchInput = async (v: string) => {
@@ -61,7 +67,9 @@ export default function Home() {
       <SiteHeader />
 
       <section className="ck-home-hero" aria-label="官方主视觉">
-        <img src="/official/kv.jpg" alt="超时空辉夜姬官方主视觉" className="ck-home-hero-image" />
+        <div className="ck-home-hero-slides">{heroImages.map((src, i) => (
+          <img key={src} src={src} alt="超时空辉夜姬官方主视觉" className={"ck-home-hero-image" + (i === heroIdx ? " is-active" : "")} />
+        ))}</div>
         <div className="ck-home-intro"><span>TSUKUYOMI FAN ARCHIVE</span><h2>把散落的星光，收进月读。</h2><p>按标签寻找创作，收藏每一份来自月读的回响。</p></div>
       </section>
       <section className="ck-home-discovery" aria-label="搜索与分类">

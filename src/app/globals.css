@@ -924,3 +924,9 @@ html, body { background:#fff !important; color:var(--ck-text); } body, html[data
 .ck-site-header svg circle[fill="url(#moonGrad)"] { fill:#b15b74; }
 .ck-site-header svg circle[fill="url(#moonGrad)"] ~ circle[fill="var(--ck-gold)"] { fill:#e9b47c; }
 .ck-site-header svg circle[stroke] { stroke:#d8a3b4; stroke-opacity:.6; }
+
+/* 首页主视觉轮播：淡入淡出 */
+.ck-home-hero-slides { position:relative; width:100%; height:clamp(230px,35vw,460px); overflow:hidden; background:#f7edf1; }
+.ck-home-hero-slides .ck-home-hero-image { position:absolute; inset:0; height:100%; opacity:0; transition:opacity 1.6s ease; }
+.ck-home-hero-slides .ck-home-hero-image.is-active { opacity:1; }
+@media(max-width:700px) { .ck-home-hero-slides { height:220px; } }
